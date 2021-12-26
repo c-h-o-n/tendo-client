@@ -1,9 +1,9 @@
-import { Box, Heading } from 'native-base';
+import { View, Heading } from 'native-base';
 
 export default function CalendarScreen() {
   return (
-    <Box flex={1} justifyContent={'center'} alignItems={'center'} safeArea>
+    <View justifyContent={'flex-end'} alignItems={'flex-end'}>
       <Heading>Calendar Works!</Heading>
-    </Box>
+    </View>
   );
 }

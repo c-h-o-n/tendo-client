@@ -1,10 +1,9 @@
-import { Box, Heading } from 'native-base';
-import { Text, View } from '../components/Themed';
+import { View, Heading } from 'native-base';
 
 export default function ProfileScreen() {
   return (
-    <Box flex={1} justifyContent={'center'} alignItems={'center'} safeArea>
+    <View flex={1} justifyContent={'center'} alignItems={'center'}>
       <Heading> Profile Works!</Heading>
-    </Box>
+    </View>
   );
 }
