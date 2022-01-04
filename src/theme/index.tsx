@@ -7,8 +7,8 @@ export const theme = extendTheme({
   },
   colors: {
     background: {
-      light: 'white',
-      dark: 'black',
+      light: '#eee',
+      dark: '#333',
     },
     primary: {
       50: '#dff8ff',

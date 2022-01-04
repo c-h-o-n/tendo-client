@@ -1,11 +1,13 @@
 import { NativeBaseProvider, StatusBar } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SafeAreaView from './src/components/core/SafeAreaView';
 
 import useCachedResources from './src/hooks/useCachedResources';
-import Navigation from './src/navigation';
 
-import { theme } from './src/theme/theme';
+import LoginScreen from './src/screens/LoginScreen';
+import Navigation from './src/navigation';
+import SafeAreaView from './src/components/core/SafeAreaView';
+
+import { theme } from './src/theme';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -18,9 +20,9 @@ export default function App() {
         <NativeBaseProvider theme={theme}>
           <SafeAreaView>
             <StatusBar barStyle={'default'} />
-            <Navigation />
+            {/* <Navigation /> */}
+            <LoginScreen />
           </SafeAreaView>
-          {/* <LoginScreen /> */}
         </NativeBaseProvider>
       </SafeAreaProvider>
     );

@@ -3,6 +3,7 @@ import { RootTabScreenProps } from '../types';
 
 export default function CourtScreen({ navigation }: RootTabScreenProps<'Court'>) {
   const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <View justifyContent={'flex-start'} alignItems={'center'}>
       <Heading>Court Works!!!!</Heading>
