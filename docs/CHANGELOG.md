@@ -9,4 +9,8 @@ add basic navigation
 
 # 0.0.2
 
-add basic design system
+add basic design system with native-base
+
+# 0.0.3
+
+init redux
