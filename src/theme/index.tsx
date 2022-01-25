@@ -47,6 +47,13 @@ export const theme = extendTheme({
         };
       },
     },
+    StatusBar: {
+      baseStyle: ({ colorMode }: { colorMode: ColorMode }) => {
+        return {
+          barStyle: colorMode === 'dark' ? 'dark-content' : 'light-content',
+        };
+      },
+    },
   },
 });
 

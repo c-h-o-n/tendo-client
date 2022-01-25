@@ -14,3 +14,7 @@ add basic design system with native-base
 # 0.0.3
 
 init redux
+
+# 0.1.0
+
+implement jwt authorization

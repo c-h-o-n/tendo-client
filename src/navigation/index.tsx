@@ -12,7 +12,7 @@ import * as React from 'react';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
-import { useColorMode, useTheme } from 'native-base';
+import { StatusBar, useColorMode, useTheme } from 'native-base';
 
 // screens
 import CalendarScreen from '../screens/CalendarScreen';
@@ -20,27 +20,62 @@ import CourtScreen from '../screens/CourtScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import TeamScreen from '../screens/TeamScreen';
+import LoginScreen from '../screens/LoginScreen';
+
+import { useSelector } from 'react-redux';
+import useCachedResources from '../hooks/useCachedResources';
+import SplashScreen from '../screens/SplashScreen';
+import useAxiosConfig from '../hooks/useAxiosConfig';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { useEffect } from 'react';
 
 export default function Navigation() {
   const { colorMode } = useColorMode();
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
+      <StatusBar barStyle={colorMode === 'light' ? 'dark-content' : 'light-content'} />
+
       <RootNavigator />
     </NavigationContainer>
   );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/doxcs/modal
- */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const isLoadingComplete = useCachedResources();
+  const axiosConfig = useAxiosConfig();
+
+  const { accessToken } = useSelector((state: any) => state.userReducer);
+
+  useEffect(() => {
+    if (isLoadingComplete) {
+      axios
+        .get('/')
+        .then((response: AxiosResponse) => {
+          console.log(response.data);
+        })
+        .catch((error: AxiosError) => {
+          console.log("can't react protect route", error);
+        });
+    }
+  }, [isLoadingComplete]);
+
+  if (!isLoadingComplete) {
+    return <SplashScreen />;
+  }
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      {accessToken ? (
+        <>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        </>
+      )}
     </Stack.Navigator>
   );
 }

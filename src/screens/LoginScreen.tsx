@@ -1,16 +1,41 @@
-import { Box, Button, Heading, Input, VStack, Pressable, Text, useToast, Image } from 'native-base';
+import { View, Button, Heading, Input, VStack, Pressable, Text, useToast, Image } from 'native-base';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { View, Text as T } from 'react-native';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserName, setAccessToken, setRefreshToken } from '../redux/actions';
+import * as SecureStore from 'expo-secure-store';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
 export default function LoginScreen() {
   const toast = useToast();
 
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = (data: any) => console.log(data);
+  const dispatch = useDispatch();
+  const { accessToken, refreshToken } = useSelector((state: any) => state.userReducer);
+
+  const onSubmit = ({ username, password }: { username: string; password: string }) => {
+    axios
+      .post('auth/login', { username: username, password: password }, {
+        skipAuthRefresh: true,
+      } as AxiosAuthRefreshRequestConfig)
+      .then((response: AxiosResponse) => {
+        dispatch(setAccessToken(response.data.access_token));
+        dispatch(setRefreshToken(response.data.refresh_token));
+        SecureStore.setItemAsync('accessToken', response.data.access_token);
+        SecureStore.setItemAsync('refreshToken', response.data.refresh_token);
+        console.log('login');
+      })
+      .catch((error: AxiosError) => {
+        console.log('login error', error.response?.data.message);
+      });
+  };
 
   return (
-    <Box flex={1} justifyContent={'center'} alignItems={'center'}>
+    <View justifyContent={'center'} alignItems={'center'}>
       <Image
         source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
         alt={'App logo'}
@@ -35,6 +60,7 @@ export default function LoginScreen() {
               size="lg"
               variant={'underlined'}
               placeholder="username"
+              autoCapitalize="none"
               value={value}
               onChangeText={value => onChange(value)}
             />
@@ -57,6 +83,8 @@ export default function LoginScreen() {
               variant={'underlined'}
               type="password"
               placeholder="password"
+              autoCapitalize="none"
+              autoCorrect={false}
               value={value}
               onChangeText={value => onChange(value)}
             />
@@ -78,6 +106,6 @@ export default function LoginScreen() {
           </Text>
         </Pressable>
       </VStack>
-    </Box>
+    </View>
   );
 }
