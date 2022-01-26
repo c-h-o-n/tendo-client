@@ -1,5 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import createAuthRefreshInterceptor, { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
+import createAuthRefreshInterceptor, {
+  AxiosAuthRefreshRequestConfig,
+} from 'axios-auth-refresh';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
@@ -8,7 +10,9 @@ import { setAccessToken, setRefreshToken } from '../redux/actions';
 export default function useAxiosConfig() {
   const baseURL = 'http://localhost:3000/';
   const dispatch = useDispatch();
-  const { accessToken, refreshToken } = useSelector((state: any) => state.userReducer);
+  const { accessToken, refreshToken } = useSelector(
+    (state: any) => state.userReducer,
+  );
 
   useEffect(() => {
     axios.defaults.baseURL = baseURL;
@@ -25,7 +29,8 @@ export default function useAxiosConfig() {
         console.log('successful refresh');
         dispatch(setAccessToken(response.data.access_token));
         dispatch(setRefreshToken(response.data.refresh_token));
-        failedRequest.response.config.headers['Authorization'] = 'Bearer ' + response.data.access_token;
+        failedRequest.response.config.headers['Authorization'] =
+          'Bearer ' + response.data.access_token;
         SecureStore.setItemAsync('accessToken', response.data.access_token);
         SecureStore.setItemAsync('refreshToken', response.data.refresh_token);
         return Promise.resolve();
