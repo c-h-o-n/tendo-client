@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import { ColorMode, extendTheme } from 'native-base';
 
 export const theme = extendTheme({
@@ -47,11 +48,11 @@ export const theme = extendTheme({
         };
       },
     },
-    StatusBar: {
-      baseStyle: ({ colorMode }: { colorMode: ColorMode }) => {
-        return {
-          barStyle: colorMode === 'dark' ? 'dark-content' : 'light-content',
-        };
+    Input: {
+      defaultProps: {
+        autoCapitalize: 'none',
+        variant: 'underlined',
+        size: 'lg',
       },
     },
   },

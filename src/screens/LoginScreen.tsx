@@ -1,21 +1,26 @@
-import { View, Button, Heading, Input, VStack, Pressable, Text, useToast, Image } from 'native-base';
-import { useEffect } from 'react';
+import { View, Button, Input, VStack, Pressable, Text, Image } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
 
 // redux
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserName, setAccessToken, setRefreshToken } from '../redux/actions';
+import { useDispatch } from 'react-redux';
+import { setAccessToken, setRefreshToken, setUserName } from '../redux/actions';
+// persist data
 import * as SecureStore from 'expo-secure-store';
+
+// api calls
+// todo: move to a service layer
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function LoginScreen() {
-  const toast = useToast();
+  // todo: get from prop
+  const nav = useNavigation();
 
   const { control, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
-  const { accessToken, refreshToken } = useSelector((state: any) => state.userReducer);
 
   const onSubmit = ({ username, password }: { username: string; password: string }) => {
     axios
@@ -27,7 +32,8 @@ export default function LoginScreen() {
         dispatch(setRefreshToken(response.data.refresh_token));
         SecureStore.setItemAsync('accessToken', response.data.access_token);
         SecureStore.setItemAsync('refreshToken', response.data.refresh_token);
-        console.log('login');
+        dispatch(setUserName(username));
+        console.log('login as', username);
       })
       .catch((error: AxiosError) => {
         console.log('login error', error.response?.data.message);
@@ -35,7 +41,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <View justifyContent={'center'} alignItems={'center'}>
+    <View justifyContent={'center'} alignItems={'center'} bg={'primary.400'}>
       <Image
         source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
         alt={'App logo'}
@@ -55,15 +61,7 @@ export default function LoginScreen() {
           control={control}
           name="username"
           render={({ field: { onChange, value } }) => (
-            <Input
-              w="100%"
-              size="lg"
-              variant={'underlined'}
-              placeholder="username"
-              autoCapitalize="none"
-              value={value}
-              onChangeText={value => onChange(value)}
-            />
+            <Input w="100%" size="lg" placeholder="username" value={value} onChangeText={(value) => onChange(value)} />
           )}
           rules={{
             required: {
@@ -80,13 +78,11 @@ export default function LoginScreen() {
             <Input
               w="100%"
               size="lg"
-              variant={'underlined'}
               type="password"
               placeholder="password"
-              autoCapitalize="none"
-              autoCorrect={false}
+              autoCompleteType="password"
               value={value}
-              onChangeText={value => onChange(value)}
+              onChangeText={(value) => onChange(value)}
             />
           )}
           rules={{
@@ -100,7 +96,7 @@ export default function LoginScreen() {
         <Button w={'50%'} onPress={handleSubmit(onSubmit)}>
           Login
         </Button>
-        <Pressable onPress={() => toast.show({ description: 'Navigate to Registration Page' })}>
+        <Pressable onPress={() => nav.navigate('Register')}>
           <Text underline fontSize={'lg'}>
             Register
           </Text>

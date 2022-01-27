@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { setAccessToken, setRefreshToken } from '../redux/actions';
-import useAxiosConfig from './useAxiosConfig';
 
 export default function useCachedResources() {
   const dispatch = useDispatch();

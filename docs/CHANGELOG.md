@@ -1,20 +1,25 @@
-# 0.0.0
+`0.0.0`
 
-init expo react-native project
+- init expo react-native project
 
-# 0.0.1
+`0.0.1`
 
-install native base
-add basic navigation
+- install native base
+- add basic navigation
 
-# 0.0.2
+`0.0.2`
 
-add basic design system with native-base
+- add basic design system with native-base
 
-# 0.0.3
+`0.0.3`
 
-init redux
+- init redux
 
-# 0.1.0
+`0.1.0`
 
-implement jwt authorization
+- implement jwt authorization
+- add login screen
+
+`0.1.1`
+
+- add register screen
