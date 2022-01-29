@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 export default function RegisterScreen() {
   const { control, handleSubmit } = useForm();
 
+  // TODO if register was success navigate back to login screen
   const onSubmit = (data: any) => {
     const user = {
       username: data.username,

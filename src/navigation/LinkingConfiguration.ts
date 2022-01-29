@@ -15,9 +15,19 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
+          Login: {
+            screens: {
+              LoginScreen: 'login',
+            },
+          },
+          Register: {
+            screens: {
+              RegisterScreen: 'register',
+            },
+          },
           Court: {
             screens: {
-              TabOneScreen: 'court',
+              CourtScreen: 'court',
             },
           },
           Team: {

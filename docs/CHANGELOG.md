@@ -23,3 +23,7 @@
 `0.1.1`
 
 - add register screen
+
+`0.1.2`
+
+- tweak navigation types and navigators

@@ -8,14 +8,14 @@ import { setAccessToken, setRefreshToken, setUserName } from '../redux/actions';
 import * as SecureStore from 'expo-secure-store';
 
 // api calls
-// todo: move to a service layer
+//TODO move to a service layer
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
 import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
-  // todo: get from prop
+  //TODO get from prop
   const nav = useNavigation();
 
   const { control, handleSubmit } = useForm();
@@ -41,7 +41,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <View justifyContent={'center'} alignItems={'center'} bg={'primary.400'}>
+    <View justifyContent={'center'} alignItems={'center'}>
       <Image
         source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
         alt={'App logo'}
