@@ -6,4 +6,5 @@ In this react-native mobile application you can search teams, challanges, player
 ## Design system basics
 
 `Use Native base components.`
-`Fundamental component:` **View**
+
+- `Fundamental component:` **View**

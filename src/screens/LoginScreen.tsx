@@ -13,11 +13,9 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
 import { useNavigation } from '@react-navigation/native';
+import { PublicStackScreenProps } from '../types';
 
-export default function LoginScreen() {
-  //TODO get from prop
-  const nav = useNavigation();
-
+export default function LoginScreen({ navigation }: PublicStackScreenProps<'Login'>) {
   const { control, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
@@ -96,7 +94,7 @@ export default function LoginScreen() {
         <Button w={'50%'} onPress={handleSubmit(onSubmit)}>
           Login
         </Button>
-        <Pressable onPress={() => nav.navigate('Register')}>
+        <Pressable onPress={() => navigation.navigate('Register')}>
           <Text underline fontSize={'lg'}>
             Register
           </Text>

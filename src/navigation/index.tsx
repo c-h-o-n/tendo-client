@@ -5,14 +5,20 @@
  */
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 
-import { PublicRoutesParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import {
+  PublicRoutesParamList,
+  PublicStackScreenProps,
+  RootStackParamList,
+  RootTabParamList,
+  RootTabScreenProps,
+} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
-import { StatusBar, useColorMode, useTheme } from 'native-base';
+import { StatusBar, useColorMode, useTheme, View } from 'native-base';
 
 // screens
 import CalendarScreen from '../screens/CalendarScreen';
@@ -33,7 +39,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 export default function Navigation() {
   const { colorMode } = useColorMode();
   return (
-    <NavigationContainer linking={LinkingConfiguration}>
+    <NavigationContainer linking={LinkingConfiguration} theme={colorMode === 'dark' ? DarkTheme : DefaultTheme}>
       <StatusBar barStyle={colorMode === 'light' ? 'dark-content' : 'light-content'} />
       <RootNavigator />
     </NavigationContainer>
@@ -82,7 +88,13 @@ function PublicStackNavigator() {
 
   return (
     <PublicStack.Navigator>
-      <PublicStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <PublicStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={({ navigation }: PublicStackScreenProps<'Login'>) => ({
+          headerShown: false,
+        })}
+      />
       <PublicStack.Screen
         name="Register"
         component={RegisterScreen}

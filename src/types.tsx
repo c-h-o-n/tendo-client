@@ -36,6 +36,11 @@ export type PublicRoutesParamList = {
   Register: undefined;
 };
 
+export type PublicStackScreenProps<Screen extends keyof PublicRoutesParamList> = NativeStackScreenProps<
+  PublicRoutesParamList,
+  Screen
+>;
+
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
