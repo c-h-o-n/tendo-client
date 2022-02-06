@@ -1,9 +1,17 @@
-import { View, Button, Input, VStack, Pressable, Text, Image } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
+
+// theme
+import { View, Button, Input, VStack, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Emoji } from '../utilities/theme';
+import Emojicon from 'react-native-emoji';
+
+// types
+import { PublicStackScreenProps } from '../navigation/types';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { setAccessToken, setRefreshToken, setUserName } from '../redux/actions';
+import { setAccessToken, setRefreshToken, setUsername } from '../redux/actions';
 // persist data
 import * as SecureStore from 'expo-secure-store';
 
@@ -12,12 +20,9 @@ import * as SecureStore from 'expo-secure-store';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
-import { useNavigation } from '@react-navigation/native';
-import { PublicStackScreenProps } from '../types';
-
 export default function LoginScreen({ navigation }: PublicStackScreenProps<'Login'>) {
   const { control, handleSubmit } = useForm();
-
+  const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useDispatch();
 
   const onSubmit = ({ username, password }: { username: string; password: string }) => {
@@ -30,7 +35,7 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
         dispatch(setRefreshToken(response.data.refresh_token));
         SecureStore.setItemAsync('accessToken', response.data.access_token);
         SecureStore.setItemAsync('refreshToken', response.data.refresh_token);
-        dispatch(setUserName(username));
+        dispatch(setUsername(username));
         console.log('login as', username);
       })
       .catch((error: AxiosError) => {
@@ -40,6 +45,13 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
 
   return (
     <View justifyContent={'center'} alignItems={'center'}>
+      <IconButton
+        m={2}
+        mb="auto"
+        alignSelf="flex-end"
+        onPress={toggleColorMode}
+        icon={<Icon as={FontAwesome5} name={colorMode === 'dark' ? 'sun' : 'moon'} />}
+      />
       <Image
         source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
         alt={'App logo'}
@@ -59,7 +71,12 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
           control={control}
           name="username"
           render={({ field: { onChange, value } }) => (
-            <Input w="100%" size="lg" placeholder="username" value={value} onChangeText={(value) => onChange(value)} />
+            <Input
+              InputLeftElement={<Emoji name="bust_in_silhouette" />}
+              placeholder="username"
+              value={value}
+              onChangeText={(value) => onChange(value)}
+            />
           )}
           rules={{
             required: {
@@ -74,11 +91,8 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
           name="password"
           render={({ field: { onChange, value } }) => (
             <Input
-              w="100%"
-              size="lg"
-              type="password"
+              InputLeftElement={<Emoji name="key" />}
               placeholder="password"
-              autoCompleteType="password"
               value={value}
               onChangeText={(value) => onChange(value)}
             />
@@ -91,14 +105,11 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
           }}
         />
 
-        <Button w={'50%'} onPress={handleSubmit(onSubmit)}>
-          Login
+        <Button onPress={handleSubmit(onSubmit)}>Login</Button>
+        <Button variant={'link'} onPress={() => navigation.navigate('Register')}>
+          Create an account
         </Button>
-        <Pressable onPress={() => navigation.navigate('Register')}>
-          <Text underline fontSize={'lg'}>
-            Register
-          </Text>
-        </Pressable>
+        <Text>{process.env.NODE_ENV}</Text>
       </VStack>
     </View>
   );

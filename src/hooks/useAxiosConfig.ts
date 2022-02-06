@@ -1,22 +1,36 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import createAuthRefreshInterceptor, { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import { setAccessToken, setRefreshToken } from '../redux/actions';
+import TokenService from '../utilities/TokenService';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { API_URL } from 'react-native-dotenv';
+import { useToast } from 'native-base';
 
-export default function useAxiosConfig() {
-  const baseURL = 'http://localhost:3000/';
+export default async function useAxiosConfig() {
+  const baseURL = API_URL;
   const dispatch = useDispatch();
-  const { accessToken, refreshToken } = useSelector((state: any) => state.userReducer);
 
-  useEffect(() => {
-    axios.defaults.baseURL = baseURL;
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
-  }, [accessToken]);
+  const { accessToken } = useSelector((state: any) => state.userReducer);
+  axios.defaults.baseURL = baseURL;
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 
+  // NETWORK ERROR
+  const toast = useToast();
+  axios.interceptors.response.use(undefined, (error: AxiosError) => {
+    if (error.message === 'Network Error') {
+      return toast.show({ description: 'network error' });
+    }
+
+    return Promise.reject(error);
+  });
+
+  // 401 - Unauthorized
   const refreshAuthLogic = async (failedRequest: any): Promise<any> => {
     console.log('expired access token');
+    const refreshToken = await TokenService.getRefreshToken();
     return axios
       .post('auth/refresh', { refresh_token: refreshToken }, {
         skipAuthRefresh: true,
@@ -31,7 +45,7 @@ export default function useAxiosConfig() {
         return Promise.resolve();
       })
       .catch((error: AxiosError) => {
-        console.log('refresh error:', error.message);
+        console.log('refresh error:', error);
         console.log('logout');
         SecureStore.deleteItemAsync('accessToken');
         dispatch(setAccessToken(null));
@@ -40,11 +54,8 @@ export default function useAxiosConfig() {
         return Promise.reject();
       });
   };
-  useEffect(() => {
-    if (refreshToken) {
-      createAuthRefreshInterceptor(axios, refreshAuthLogic, {});
-    }
-  }, [refreshToken]);
+
+  createAuthRefreshInterceptor(axios, refreshAuthLogic, {});
 
   return accessToken;
 }

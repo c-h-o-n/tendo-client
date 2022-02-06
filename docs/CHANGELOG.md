@@ -27,3 +27,11 @@
 `0.1.2`
 
 - tweak navigation types and navigators
+
+`0.1.3`
+
+- add basic profile screen
+- add chat screen
+- add basic network error handling
+- tweak theme (colors, input)
+- tweak ui

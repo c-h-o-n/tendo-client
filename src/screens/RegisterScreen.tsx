@@ -1,11 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { View, Input, VStack, Button } from 'native-base';
+import { Emoji } from '../utilities/theme';
 import { Controller, useForm } from 'react-hook-form';
+import { PublicStackScreenProps } from '../navigation/types';
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }: PublicStackScreenProps<'Register'>) {
   const { control, handleSubmit } = useForm();
 
-  // TODO if register was success navigate back to login screen
   const onSubmit = (data: any) => {
     const user = {
       username: data.username,
@@ -19,7 +20,8 @@ export default function RegisterScreen() {
     axios
       .post('auth/register', user)
       .then((response: AxiosResponse) => {
-        console.log('register success', response);
+        console.log('register success', response.status);
+        navigation.navigate('Login');
       })
       .catch((error: AxiosError) => {
         console.log('register error', error.message);
@@ -27,13 +29,14 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View flex={1} justifyContent={'center'} alignItems={'center'}>
+    <View flex={1} alignItems={'center'}>
       <VStack
         w={{
           base: '75%',
           md: '25%',
         }}
-        space={12}
+        space={5}
+        mt={10}
         alignItems={'center'}
       >
         {/* Username */}
@@ -41,7 +44,12 @@ export default function RegisterScreen() {
           control={control}
           name="username"
           render={({ field: { onChange, value } }) => (
-            <Input w="100%" placeholder="username" value={value} onChangeText={(value) => onChange(value)} />
+            <Input
+              InputLeftElement={<Emoji name="bust_in_silhouette" />}
+              placeholder="username"
+              value={value}
+              onChangeText={(value) => onChange(value)}
+            />
           )}
           rules={{
             required: {
@@ -55,7 +63,13 @@ export default function RegisterScreen() {
           control={control}
           name="password"
           render={({ field: { onChange, value } }) => (
-            <Input w="100%" type="password" placeholder="password" value={value} onChangeText={(value) => onChange(value)} />
+            <Input
+              InputLeftElement={<Emoji name="key" />}
+              type="password"
+              placeholder="password"
+              value={value}
+              onChangeText={(value) => onChange(value)}
+            />
           )}
           rules={{
             required: {
@@ -70,7 +84,7 @@ export default function RegisterScreen() {
           name="confirmPassword"
           render={({ field: { onChange, value } }) => (
             <Input
-              w="100%"
+              InputLeftElement={<Emoji name="repeat" />}
               type="password"
               placeholder="confirm password"
               value={value}
@@ -90,8 +104,8 @@ export default function RegisterScreen() {
           name="firstName"
           render={({ field: { onChange, value } }) => (
             <Input
-              w="100%"
-              placeholder="firt name"
+              InputLeftElement={<Emoji name="monkey" />}
+              placeholder="first name"
               autoCapitalize="words"
               value={value}
               onChangeText={(value) => onChange(value)}
@@ -110,7 +124,7 @@ export default function RegisterScreen() {
           name="lastName"
           render={({ field: { onChange, value } }) => (
             <Input
-              w="100%"
+              InputLeftElement={<Emoji name="ghost" />}
               placeholder="last name"
               autoCapitalize="words"
               value={value}
@@ -129,7 +143,13 @@ export default function RegisterScreen() {
           control={control}
           name="email"
           render={({ field: { onChange, value } }) => (
-            <Input w="100%" type="email" placeholder="email" value={value} onChangeText={(value) => onChange(value)} />
+            <Input
+              InputLeftElement={<Emoji name="envelope" />}
+              type="email"
+              placeholder="email"
+              value={value}
+              onChangeText={(value) => onChange(value)}
+            />
           )}
           rules={{
             required: {
@@ -138,12 +158,18 @@ export default function RegisterScreen() {
             },
           }}
         />
-        {/* Age */}
+        {/* Date of birth */}
         <Controller
           control={control}
           name="age"
           render={({ field: { onChange, value } }) => (
-            <Input w="100%" type="number" placeholder="age" value={value} onChangeText={(value) => onChange(value)} />
+            <Input
+              InputLeftElement={<Emoji name="hatching_chick" />}
+              type="datapicker"
+              placeholder="date of birth"
+              value={value}
+              onChangeText={(value) => onChange(value)}
+            />
           )}
           rules={{
             required: {
@@ -157,7 +183,12 @@ export default function RegisterScreen() {
           control={control}
           name="location"
           render={({ field: { onChange, value } }) => (
-            <Input w="100%" placeholder="location" value={value} onChangeText={(value) => onChange(value)} />
+            <Input
+              InputLeftElement={<Emoji name="pushpin" />}
+              placeholder="location"
+              value={value}
+              onChangeText={(value) => onChange(value)}
+            />
           )}
           rules={{
             required: {
@@ -166,9 +197,7 @@ export default function RegisterScreen() {
             },
           }}
         />
-        <Button w={'50%'} onPress={handleSubmit(onSubmit)}>
-          Register
-        </Button>
+        <Button onPress={handleSubmit(onSubmit)}>Sign up!</Button>
       </VStack>
     </View>
   );
