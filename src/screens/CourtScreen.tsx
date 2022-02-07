@@ -1,54 +1,21 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import { Button, Heading, useColorMode, View } from 'native-base';
-import { useDispatch } from 'react-redux';
-import * as SecureStore from 'expo-secure-store';
-import { setAccessToken, setRefreshToken } from '../redux/actions';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Icon, IconButton, Input, View, Row, Flex, Container, Heading } from 'native-base';
 import { HomeStackScreenProps } from '../navigation/types';
+import { Emoji } from '../theme';
 
 export default function CourtScreen({ navigation }: HomeStackScreenProps<'Court'>) {
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  const dispatch = useDispatch();
-  // BUG after navigating back from chat on checkNetwork() and color mode change the app renavigate to court
-  const checkNetwork = () => {
-    console.log('get protected route');
-    axios
-      .get('/')
-      .then((response: AxiosResponse) => {
-        console.log(response.data);
-      })
-      .catch((error: AxiosError) => {
-        console.log("can't react protect route", error.message);
-      });
-  };
-
   const navigateToChat = () => {
     navigation.navigate('Chat');
   };
-
-  const logout = async () => {
-    await SecureStore.deleteItemAsync('accessToken');
-    dispatch(setAccessToken(null));
-    await SecureStore.deleteItemAsync('refreshToken');
-    dispatch(setRefreshToken(null));
-    console.log('deleted');
-  };
-
   return (
-    <View justifyContent={'flex-start'} alignItems={'center'}>
-      <Heading>Court Works!!!!</Heading>
-      <Button mt={5} onPress={toggleColorMode}>
-        {`Current mode ${colorMode?.toString()}`}
-      </Button>
-      <Button mt={5} onPress={checkNetwork}>
-        Check token
-      </Button>
-      <Button mt={5} onPress={navigateToChat} bg={'green.600'}>
-        Chat
-      </Button>
-      <Button mt={5} onPress={logout}>
-        Logout
-      </Button>
+    <View>
+      <Row space={2} mx={2} justifyContent={'space-between'}>
+        <Input flex={1} InputLeftElement={<Emoji name="mag" />} placeholder="search..." />
+        <IconButton icon={<Icon as={FontAwesome5} name="comment-dots" />} onPress={navigateToChat} />
+      </Row>
+      <Row justifyContent={'center'} alignItems={'center'} flex={1}>
+        <Heading>Posts</Heading>
+      </Row>
     </View>
   );
 }
