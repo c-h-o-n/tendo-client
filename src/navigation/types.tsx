@@ -1,4 +1,4 @@
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { BottomTabScreenProps as NativeBottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -26,8 +26,8 @@ export type BottomTabParamList = {
   Calendar: undefined;
   Profile: undefined;
 };
-export type RootTabScreenProps<Screen extends keyof BottomTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<BottomTabParamList, Screen>,
+export type BottomTabScreenProps<Screen extends keyof BottomTabParamList> = CompositeScreenProps<
+  NativeBottomTabScreenProps<BottomTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
 

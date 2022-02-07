@@ -57,7 +57,6 @@ export const theme = extendTheme({
     Input: {
       defaultProps: {
         variant: 'outline',
-        w: '100%',
         p: 3,
         size: 'lg',
         fontSize: 'lg',

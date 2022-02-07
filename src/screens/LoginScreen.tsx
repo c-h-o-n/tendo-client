@@ -1,9 +1,9 @@
 import { Controller, useForm } from 'react-hook-form';
 
 // theme
-import { View, Button, Input, VStack, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
+import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Emoji } from '../utilities/theme';
+import { Emoji } from '../theme';
 import Emojicon from 'react-native-emoji';
 
 // types
@@ -59,7 +59,7 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
         borderRadius={100}
         mb={40}
       />
-      <VStack
+      <Column
         w={{
           base: '75%',
           md: '25%',
@@ -92,6 +92,7 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
           render={({ field: { onChange, value } }) => (
             <Input
               InputLeftElement={<Emoji name="key" />}
+              type="password"
               placeholder="password"
               value={value}
               onChangeText={(value) => onChange(value)}
@@ -110,7 +111,7 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
           Create an account
         </Button>
         <Text>{process.env.NODE_ENV}</Text>
-      </VStack>
+      </Column>
     </View>
   );
 }

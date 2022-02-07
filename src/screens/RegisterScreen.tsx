@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { View, Input, VStack, Button } from 'native-base';
-import { Emoji } from '../utilities/theme';
+import { View, Input, Column, Button } from 'native-base';
+import { Emoji } from '../theme';
 import { Controller, useForm } from 'react-hook-form';
 import { PublicStackScreenProps } from '../navigation/types';
 
@@ -30,7 +30,7 @@ export default function RegisterScreen({ navigation }: PublicStackScreenProps<'R
 
   return (
     <View flex={1} alignItems={'center'}>
-      <VStack
+      <Column
         w={{
           base: '75%',
           md: '25%',
@@ -198,7 +198,7 @@ export default function RegisterScreen({ navigation }: PublicStackScreenProps<'R
           }}
         />
         <Button onPress={handleSubmit(onSubmit)}>Sign up!</Button>
-      </VStack>
+      </Column>
     </View>
   );
 }

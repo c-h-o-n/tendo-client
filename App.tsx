@@ -1,7 +1,7 @@
 import { NativeBaseProvider } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { theme } from './src/utilities/theme';
+import { theme } from './src/theme';
 
 import SafeAreaView from './src/components/core/SafeAreaView';
 import Navigation from './src/navigation';

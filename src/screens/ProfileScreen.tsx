@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { View, Text, VStack, Spinner } from 'native-base';
+import { View, Text, Column, Spinner } from 'native-base';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { User } from '../types';
@@ -32,7 +32,7 @@ export default function ProfileScreen() {
   // TODO load image
   return (
     <View justifyContent={'flex-start'} alignItems={'center'}>
-      <VStack height={200} alignItems={'center'} justifyContent={'space-between'}>
+      <Column height={200} alignItems={'center'} justifyContent={'space-between'}>
         <Text>TODO load image</Text>
 
         <Text bold>
@@ -52,7 +52,7 @@ export default function ProfileScreen() {
         <Text>Weight: {user.weight}</Text>
         <Text>Sports: {user.sports}</Text>
         <Text>Joined: {user.joiningDate}</Text>
-      </VStack>
+      </Column>
     </View>
   );
 }
