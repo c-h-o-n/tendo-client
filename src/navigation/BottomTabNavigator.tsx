@@ -10,6 +10,7 @@ import HomeStackNavigator from './HomeStackNavigator';
 import CalendarScreen from '../screens/CalendarScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import TeamScreen from '../screens/TeamScreen';
+import TeamStackNavigator from './TeamStackNavigator';
 
 export default function BottomTabNavigator() {
   const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -34,7 +35,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Team"
-        component={TeamScreen}
+        component={TeamStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => <TabBarIcon name="users" color={color} solid={false} />,
         }}

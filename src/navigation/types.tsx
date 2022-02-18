@@ -22,7 +22,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 // BottomTab
 export type BottomTabParamList = {
   Home: HomeStackParamList | undefined;
-  Team: undefined;
+  Team: TeamStackParamList | undefined;
   Calendar: undefined;
   Profile: undefined;
 };
@@ -41,6 +41,15 @@ export type HomeStackScreenProps<Screen extends keyof HomeStackParamList> = Nati
   Screen
 >;
 
+// TeamStack
+export type TeamStackParamList = {
+  Home: undefined;
+  CreateTeam: undefined;
+};
+export type TeamStackScreenProps<Screen extends keyof TeamStackParamList> = NativeStackScreenProps<
+  TeamStackParamList,
+  Screen
+>;
 // PublicStack
 export type PublicStackParamList = {
   Login: undefined;
