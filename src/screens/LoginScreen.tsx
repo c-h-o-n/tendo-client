@@ -11,7 +11,7 @@ import { PublicStackScreenProps } from '../navigation/types';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { setAccessToken, setRefreshToken, setUsername } from '../redux/actions';
+import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../redux/actions';
 // persist data
 import * as SecureStore from 'expo-secure-store';
 
@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
 
   const onSubmit = ({ username, password }: { username: string; password: string }) => {
     axios
-      .post('auth/login', { username: username, password: password }, {
+      .post('auth/signin', { username: username, password: password }, {
         skipAuthRefresh: true,
       } as AxiosAuthRefreshRequestConfig)
       .then((response: AxiosResponse) => {
@@ -35,8 +35,10 @@ export default function LoginScreen({ navigation }: PublicStackScreenProps<'Logi
         dispatch(setRefreshToken(response.data.refresh_token));
         SecureStore.setItemAsync('accessToken', response.data.access_token);
         SecureStore.setItemAsync('refreshToken', response.data.refresh_token);
-        dispatch(setUsername(username));
-        console.log('login as', username);
+
+        dispatch(setUserId(response.data.id));
+        dispatch(setUsername(response.data.username));
+        console.log('login as', response.data.username, response.data.id);
       })
       .catch((error: AxiosError) => {
         console.log('login error', error.response?.data.message);

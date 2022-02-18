@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme, Theme } from '@react-navigation/native';
 import { ColorMode, extendTheme, Factory } from 'native-base';
 import NativeEmoji from 'react-native-emoji';
+import NativeSwiper from 'react-native-swiper';
 // nativebase
 export const theme = extendTheme({
   config: {
@@ -81,6 +82,15 @@ export const theme = extendTheme({
 
 // Emoji icons
 export const Emoji = Factory(NativeEmoji, { defaultProps: { ml: 2 } });
+export const Swiper = Factory(NativeSwiper, {
+  defaultProps: {
+    pt: 4,
+    activeDotColor: theme.colors.secondary[400],
+    paginationStyle: { top: 0, bottom: undefined },
+    loop: false,
+    bounces: true,
+  },
+});
 
 type CustomThemeType = typeof theme;
 declare module 'native-base' {

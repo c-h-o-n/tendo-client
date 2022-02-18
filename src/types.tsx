@@ -4,6 +4,7 @@
  */
 
 export type User = {
+  id: string;
   username: string;
   firstName: string;
   lastName: string;
@@ -22,4 +23,14 @@ export type User = {
   lastSeen: string;
   joiningDate: string;
   sports: string;
+};
+
+export type Team = {
+  id: string;
+  name: string;
+  location: string;
+  wins: number;
+  loses: number;
+  elo?: number;
+  TeamMember: User[];
 };

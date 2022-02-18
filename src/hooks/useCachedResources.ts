@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { setAccessToken, setRefreshToken, setUsername } from '../redux/actions';
+import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../redux/actions';
 import jwtDecode from 'jwt-decode';
 
 export default function useCachedResources() {
@@ -32,9 +32,10 @@ export default function useCachedResources() {
         console.log(accessToken ? 'I load access Token' : 'No access token loaded');
         console.log(accessToken ? 'I load refresh Token' : 'No refresh token loaded');
         if (accessToken) {
-          const { username } = jwtDecode<any>(accessToken);
-          console.log(username ? `I load user: ${username}` : 'No user loaded');
+          const { username, sub } = jwtDecode<any>(accessToken);
+          console.log(username ? `I load user: ${username + '[' + sub + ']'}` : 'No user loaded');
 
+          dispatch(setUserId(sub));
           dispatch(setUsername(username));
         }
         dispatch(setAccessToken(accessToken));

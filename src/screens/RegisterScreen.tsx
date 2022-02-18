@@ -4,6 +4,7 @@ import { Emoji } from '../theme';
 import { Controller, useForm } from 'react-hook-form';
 import { PublicStackScreenProps } from '../navigation/types';
 
+// TODO rename register to sign up in whole project
 export default function RegisterScreen({ navigation }: PublicStackScreenProps<'Register'>) {
   const { control, handleSubmit } = useForm();
 

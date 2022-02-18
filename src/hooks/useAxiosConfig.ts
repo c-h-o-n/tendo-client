@@ -14,6 +14,7 @@ export default async function useAxiosConfig() {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector((state: any) => state.userReducer);
+
   axios.defaults.baseURL = baseURL;
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 
