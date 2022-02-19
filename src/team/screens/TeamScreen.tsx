@@ -1,12 +1,13 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { View, Heading, Center, Button, Column, FlatList, Text, Spinner, Box, Row } from 'native-base';
+import { View, Heading, Center, Button, Column, FlatList, Text, Spinner } from 'native-base';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { TeamStackScreenProps } from '../navigation/types';
-import { Swiper } from '../theme';
-import { Team, User } from '../types';
+import { Swiper } from '../../common/theme';
+// types
+import { Team, User } from '../../types';
+import { TeamStackScreenProps } from '@team/navigation/types';
 
-export default function TeamScreen({ navigation }: TeamStackScreenProps<'Home'>) {
+export default function TeamScreen({ navigation }: TeamStackScreenProps<'Team'>) {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(false);
   const { userId } = useSelector((state: any) => state.userReducer);
@@ -17,10 +18,12 @@ export default function TeamScreen({ navigation }: TeamStackScreenProps<'Home'>)
       .then((response: AxiosResponse) => {
         console.log(response.data);
         setTeams(response.data);
-        setLoading(false);
       })
       .catch((error: AxiosError) => {
         console.log(error.request);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -52,6 +55,7 @@ export default function TeamScreen({ navigation }: TeamStackScreenProps<'Home'>)
 
   return (
     <View>
+      {/* BUG on android animation bug */}
       <Swiper>
         {teams.map((team) => (
           <Column key={team.id} alignItems={'center'}>
@@ -68,7 +72,7 @@ export default function TeamScreen({ navigation }: TeamStackScreenProps<'Home'>)
             <FlatList
               data={team.TeamMember}
               renderItem={({ item }) => <Text>{item.User.username}</Text>}
-              keyExtractor={(item: User) => item.username}
+              keyExtractor={(item: User) => item.username} // FIXME key not working
             />
           </Column>
         ))}

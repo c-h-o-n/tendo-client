@@ -10,6 +10,19 @@ module.exports = function (api) {
           moduleName: 'react-native-dotenv',
         },
       ],
+      [
+        'module-resolver',
+        {
+          alias: {
+            '@common': './src/common',
+            '@court': './src/court',
+            '@team': './src/team',
+            '@calendar': './src/calendar',
+            '@profile': './src/profile',
+            '@redux': './src/redux',
+          },
+        },
+      ],
     ],
   };
 };

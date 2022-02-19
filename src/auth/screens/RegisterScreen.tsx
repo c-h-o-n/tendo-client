@@ -1,11 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { View, Input, Column, Button } from 'native-base';
-import { Emoji } from '../theme';
+import { Emoji } from '../../common/theme';
 import { Controller, useForm } from 'react-hook-form';
-import { PublicStackScreenProps } from '../navigation/types';
+import { AuthStackScreenProps } from 'auth/navigation/types';
 
 // TODO rename register to sign up in whole project
-export default function RegisterScreen({ navigation }: PublicStackScreenProps<'Register'>) {
+export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>) {
   const { control, handleSubmit } = useForm();
 
   const onSubmit = (data: any) => {
@@ -15,17 +15,17 @@ export default function RegisterScreen({ navigation }: PublicStackScreenProps<'R
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
-      age: parseInt(data.age),
+      birthDate: data.birthDate,
       location: data.location,
     };
     axios
-      .post('auth/register', user)
+      .post('auth/signup', user)
       .then((response: AxiosResponse) => {
         console.log('register success', response.status);
         navigation.navigate('Login');
       })
       .catch((error: AxiosError) => {
-        console.log('register error', error.message);
+        console.log('register error', error.response);
       });
   };
 
@@ -162,7 +162,7 @@ export default function RegisterScreen({ navigation }: PublicStackScreenProps<'R
         {/* Date of birth */}
         <Controller
           control={control}
-          name="age"
+          name="birthDate"
           render={({ field: { onChange, value } }) => (
             <Input
               InputLeftElement={<Emoji name="hatching_chick" />}

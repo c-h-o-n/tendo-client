@@ -1,12 +1,13 @@
 // navigators
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ChatScreen from '../screens/ChatScreen';
 
 // screens
 import CourtScreen from '../screens/CourtScreen';
+import ChatScreen from '../screens/ChatScreen';
+import { CourtStackParamList } from '../../common/navigation/types';
 
-export default function HomeStackNavigator() {
-  const Stack = createNativeStackNavigator();
+export default function CourtStackNavigator() {
+  const Stack = createNativeStackNavigator<CourtStackParamList>();
   return (
     <Stack.Navigator>
       <Stack.Screen name="Court" component={CourtScreen} options={{ headerShown: false }} />

@@ -35,3 +35,8 @@
 - add basic network error handling
 - tweak theme (colors, input)
 - tweak ui
+
+`0.1.4`
+
+- add basic team screen
+- refactor project sturecture -> feature / module based

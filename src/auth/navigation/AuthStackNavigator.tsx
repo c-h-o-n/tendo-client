@@ -1,4 +1,4 @@
-import { PublicStackParamList } from './types';
+import { AuthStackParamList } from '../../common/navigation/types';
 
 // navigators
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,8 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 
-export default function PublicStackNavigator() {
-  const Stack = createNativeStackNavigator<PublicStackParamList>();
+export default function AuthStackNavigator() {
+  const Stack = createNativeStackNavigator<AuthStackParamList>();
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

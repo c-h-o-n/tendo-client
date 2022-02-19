@@ -4,7 +4,7 @@ import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
-import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../redux/actions';
+import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../../redux/actions';
 import jwtDecode from 'jwt-decode';
 
 export default function useCachedResources() {

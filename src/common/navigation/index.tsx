@@ -5,7 +5,6 @@ import { StatusBar, useColorMode } from 'native-base';
 
 import RootNavigator from './RootNavigator';
 import { NavigationDarkTheme, NavigationLightTheme } from '../theme';
-
 export default function Navigation() {
   const { colorMode } = useColorMode();
 

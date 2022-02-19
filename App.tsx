@@ -1,11 +1,12 @@
 // TODO Refactor codebase to feature based
+// TODO add @ import prefixes
 import { NativeBaseProvider } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { theme } from './src/theme';
+import { theme } from './src/common/theme';
 
-import SafeAreaView from './src/components/core/SafeAreaView';
-import Navigation from './src/navigation';
+import Navigation from './src/common/navigation';
+import SafeAreaView from './src/common/components/SafeAreaView';
 
 // redux
 import { Provider as ReduxProvider } from 'react-redux';

@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Button, View, Input, Column } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
-import { TeamStackScreenProps } from '../navigation/types';
-import { Emoji } from '../theme';
+
+import { TeamStackScreenProps } from '@team/navigation/types';
+import { Emoji } from '@common/theme';
 
 export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'CreateTeam'>) {
   const { control, handleSubmit } = useForm();
@@ -11,7 +12,7 @@ export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'C
     console.log(data);
     axios
       .post('/team', { name: data.name, location: data.location })
-      .then((response: AxiosResponse) => navigation.navigate('Home'))
+      .then((response: AxiosResponse) => navigation.navigate('Team'))
       .catch((error: AxiosError) => console.log(error.message));
   };
   return (

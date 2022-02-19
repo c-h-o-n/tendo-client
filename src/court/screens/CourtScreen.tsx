@@ -1,9 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Icon, IconButton, Input, View, Row, Flex, Container, Heading } from 'native-base';
-import { HomeStackScreenProps } from '../navigation/types';
-import { Emoji } from '../theme';
+import { Icon, IconButton, Input, View, Row, Heading } from 'native-base';
 
-export default function CourtScreen({ navigation }: HomeStackScreenProps<'Court'>) {
+import { CourtStackScreenProps } from '@court/navigation/types';
+import { Emoji } from '@common/theme';
+
+export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court'>) {
   const navigateToChat = () => {
     navigation.navigate('Chat');
   };

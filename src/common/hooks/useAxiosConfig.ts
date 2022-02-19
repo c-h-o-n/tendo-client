@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import createAuthRefreshInterceptor, { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 import { useDispatch, useSelector } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
-import { setAccessToken, setRefreshToken } from '../redux/actions';
+import { setAccessToken, setRefreshToken } from '../../redux/actions';
 import TokenService from '../utilities/TokenService';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

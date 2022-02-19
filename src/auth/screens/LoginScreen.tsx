@@ -3,15 +3,14 @@ import { Controller, useForm } from 'react-hook-form';
 // theme
 import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Emoji } from '../theme';
-import Emojicon from 'react-native-emoji';
+import { Emoji } from '../../common/theme';
 
 // types
-import { PublicStackScreenProps } from '../navigation/types';
+import { AuthStackScreenProps } from '../../common/navigation/types';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../redux/actions';
+import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../../redux/actions';
 // persist data
 import * as SecureStore from 'expo-secure-store';
 
@@ -20,7 +19,7 @@ import * as SecureStore from 'expo-secure-store';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
-export default function LoginScreen({ navigation }: PublicStackScreenProps<'Login'>) {
+export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
   const { control, handleSubmit } = useForm();
   const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useDispatch();

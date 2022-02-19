@@ -1,8 +1,4 @@
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */
-
+// TODO refactore these types
 export type User = {
   id: string;
   username: string;

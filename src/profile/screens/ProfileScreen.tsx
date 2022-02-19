@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { View, Text, Column, Spinner } from 'native-base';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { User } from '../types';
+import { User } from '../../types';
 export default function ProfileScreen() {
   const { username } = useSelector((state: any) => state.userReducer);
 

@@ -4,13 +4,12 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 // navigators
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeStackNavigator from './HomeStackNavigator';
+import CourtStackNavigator from '../../court/navigation/CourtStackNavigator';
 
 // screens
-import CalendarScreen from '../screens/CalendarScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import TeamScreen from '../screens/TeamScreen';
-import TeamStackNavigator from './TeamStackNavigator';
+import CalendarScreen from '../../calendar/screens/CalendarScreen';
+import ProfileScreen from '../../profile/screens/ProfileScreen';
+import TeamStackNavigator from '../../team/navigation/TeamStackNavigator';
 
 export default function BottomTabNavigator() {
   const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -28,7 +27,7 @@ export default function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Home"
-        component={HomeStackNavigator}
+        component={CourtStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => <TabBarIcon name="clipboard" color={color} solid={focused ? true : false} />,
         }}

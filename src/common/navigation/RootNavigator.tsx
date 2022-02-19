@@ -8,12 +8,12 @@ import { RootStackParamList } from './types';
 // navigators
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
-import PublicStackNavigator from './PublicStackNavigator';
+import AuthStackNavigator from '../../auth/navigation/AuthStackNavigator';
 
 // screens
 import SplashScreen from '../screens/SplashScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-
+// BUG Found screens with the same name nested inside one another
 export default function RootNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const isLoadingComplete = useCachedResources();
@@ -48,6 +48,6 @@ export default function RootNavigator() {
   function Authenticator() {
     const { accessToken } = useSelector((state: any) => state.userReducer);
 
-    return accessToken ? <BottomTabNavigator /> : <PublicStackNavigator />;
+    return accessToken ? <BottomTabNavigator /> : <AuthStackNavigator />;
   }
 }

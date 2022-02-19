@@ -3,7 +3,7 @@ import { View, Button, useColorMode } from 'native-base';
 import { useDispatch } from 'react-redux';
 
 import * as SecureStore from 'expo-secure-store';
-import { setAccessToken, setRefreshToken } from '../redux/actions';
+import { setAccessToken, setRefreshToken } from '../../redux/actions';
 
 export default function CalendarScreen() {
   const { colorMode, toggleColorMode } = useColorMode();

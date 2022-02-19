@@ -82,6 +82,8 @@ export const theme = extendTheme({
 
 // Emoji icons
 export const Emoji = Factory(NativeEmoji, { defaultProps: { ml: 2 } });
+
+// Custom swiper
 export const Swiper = Factory(NativeSwiper, {
   defaultProps: {
     pt: 4,
