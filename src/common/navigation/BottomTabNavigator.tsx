@@ -4,12 +4,12 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 // navigators
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CourtStackNavigator from '../../court/navigation/CourtStackNavigator';
 
 // screens
-import CalendarScreen from '../../calendar/screens/CalendarScreen';
-import ProfileScreen from '../../profile/screens/ProfileScreen';
-import TeamStackNavigator from '../../team/navigation/TeamStackNavigator';
+import CourtStackNavigator from '@court/navigation/CourtStackNavigator';
+import TeamStackNavigator from '@team/navigation/TeamStackNavigator';
+import CalendarScreen from '@calendar/CalendarScreen';
+import ProfileScreen from '@profile/ProfileScreen';
 
 export default function BottomTabNavigator() {
   const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -17,7 +17,7 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="CourtStack"
       screenOptions={{
         tabBarActiveTintColor: colors.primary[500],
         tabBarInactiveTintColor: colors.warmGray[500],
@@ -26,28 +26,28 @@ export default function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="Home"
+        name="CourtStack"
         component={CourtStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => <TabBarIcon name="clipboard" color={color} solid={focused ? true : false} />,
         }}
       />
       <BottomTab.Screen
-        name="Team"
+        name="TeamStack"
         component={TeamStackNavigator}
         options={{
           tabBarIcon: ({ color, focused }) => <TabBarIcon name="users" color={color} solid={false} />,
         }}
       />
       <BottomTab.Screen
-        name="Calendar"
+        name="CalendarStack"
         component={CalendarScreen}
         options={{
           tabBarIcon: ({ color, focused }) => <TabBarIcon name="calendar" color={color} solid={focused ? true : false} />,
         }}
       />
       <BottomTab.Screen
-        name="Profile"
+        name="ProfileStack"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, focused }) => <TabBarIcon name="user" color={color} solid={focused ? true : false} />,

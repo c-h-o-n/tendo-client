@@ -13,7 +13,6 @@ import AuthStackNavigator from '../../auth/navigation/AuthStackNavigator';
 // screens
 import SplashScreen from '../screens/SplashScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-// BUG Found screens with the same name nested inside one another
 export default function RootNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const isLoadingComplete = useCachedResources();

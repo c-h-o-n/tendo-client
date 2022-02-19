@@ -1,18 +1,27 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import { Button, View, Input, Column } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
 
-import { TeamStackScreenProps } from '@team/navigation/types';
+// theme
+import { Button, View, Input, Column } from 'native-base';
 import { Emoji } from '@common/theme';
+
+// hooks
+import { useTeamApi } from '@team/hooks/useTeamApi';
+
+// types
+import { AxiosError, AxiosResponse } from 'axios';
+import { TeamStackScreenProps } from '@team/navigation/types';
 
 export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'CreateTeam'>) {
   const { control, handleSubmit } = useForm();
-
+  const { createTeam } = useTeamApi();
   const onSubmit = (data: any) => {
-    console.log(data);
-    axios
-      .post('/team', { name: data.name, location: data.location })
-      .then((response: AxiosResponse) => navigation.navigate('Team'))
+    const team = {
+      name: data.name,
+      location: data.location,
+    };
+
+    createTeam(team)
+      .then((response: AxiosResponse) => navigation.navigate('TeamList'))
       .catch((error: AxiosError) => console.log(error.message));
   };
   return (

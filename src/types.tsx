@@ -28,5 +28,5 @@ export type Team = {
   wins: number;
   loses: number;
   elo?: number;
-  TeamMember: User[];
+  members: User[];
 };

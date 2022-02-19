@@ -1,20 +1,29 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+// theme
 import { View, Heading, Center, Button, Column, FlatList, Text, Spinner } from 'native-base';
+import { Swiper } from '@common/theme';
+
+// hooks
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Swiper } from '../../common/theme';
+import { useTeamApi } from '@team/hooks/useTeamApi';
+
 // types
+import { AxiosError, AxiosResponse } from 'axios';
 import { Team, User } from '../../types';
 import { TeamStackScreenProps } from '@team/navigation/types';
 
-export default function TeamScreen({ navigation }: TeamStackScreenProps<'Team'>) {
+export default function TeamListScreen({ navigation }: TeamStackScreenProps<'TeamList'>) {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(false);
+
   const { userId } = useSelector((state: any) => state.userReducer);
+
+  const { getTeamsByUserId } = useTeamApi();
+
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`user/${userId}/teams`)
+
+    getTeamsByUserId(userId)
       .then((response: AxiosResponse) => {
         console.log(response.data);
         setTeams(response.data);
@@ -70,9 +79,9 @@ export default function TeamScreen({ navigation }: TeamStackScreenProps<'Team'>)
             {/* TODO add elo icons */}
             <Text>{!team.elo ? '0' : team.elo}</Text>
             <FlatList
-              data={team.TeamMember}
-              renderItem={({ item }) => <Text>{item.User.username}</Text>}
-              keyExtractor={(item: User) => item.username} // FIXME key not working
+              data={team.members}
+              renderItem={({ item }) => <Text>{item.username}</Text>}
+              keyExtractor={(item: User) => item.id}
             />
           </Column>
         ))}

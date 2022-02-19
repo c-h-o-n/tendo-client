@@ -1,12 +1,20 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { Controller, useForm } from 'react-hook-form';
+
+// theme
 import { View, Input, Column, Button } from 'native-base';
 import { Emoji } from '../../common/theme';
-import { Controller, useForm } from 'react-hook-form';
-import { AuthStackScreenProps } from 'auth/navigation/types';
+
+// hooks
+import { useAuthApi } from '../hooks/useAuthApi';
+
+// types
+import { AuthStackScreenProps } from '../navigation/types';
+import { AxiosError, AxiosResponse } from 'axios';
 
 // TODO rename register to sign up in whole project
-export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>) {
+export default function SignUpScreen({ navigation }: AuthStackScreenProps<'SignUp'>) {
   const { control, handleSubmit } = useForm();
+  const { signUp } = useAuthApi();
 
   const onSubmit = (data: any) => {
     const user = {
@@ -18,11 +26,11 @@ export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Reg
       birthDate: data.birthDate,
       location: data.location,
     };
-    axios
-      .post('auth/signup', user)
+
+    signUp(user)
       .then((response: AxiosResponse) => {
         console.log('register success', response.status);
-        navigation.navigate('Login');
+        navigation.navigate('SignIn');
       })
       .catch((error: AxiosError) => {
         console.log('register error', error.response);

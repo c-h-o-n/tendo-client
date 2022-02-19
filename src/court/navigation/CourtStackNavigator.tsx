@@ -2,9 +2,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
-import CourtScreen from '../screens/CourtScreen';
-import ChatScreen from '../screens/ChatScreen';
-import { CourtStackParamList } from '../../common/navigation/types';
+import CourtScreen from '../court/CourtScreen';
+import ChatScreen from '../chat/ChatScreen';
+import { CourtStackParamList } from './types';
 
 export default function CourtStackNavigator() {
   const Stack = createNativeStackNavigator<CourtStackParamList>();

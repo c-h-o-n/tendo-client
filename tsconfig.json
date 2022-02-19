@@ -2,14 +2,13 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "baseUrl": "src",
     "paths": {
-      "@common/*": ["common/*"],
-      "@court/*": ["court/*"],
-      "@team/*": ["team/*"],
-      "@calendar/*": ["calendar/*"],
-      "@profile/*": ["profile/*"],
-      "@redux/*": ["redux/*"]
+      "@common/*": ["./src/common/*"],
+      "@court/*": ["./src/court/*"],
+      "@team/*": ["./src/team/*"],
+      "@calendar/*": ["./src/calendar/*"],
+      "@profile/*": ["./src/profile/*"],
+      "@redux/*": ["./src/redux/*"]
     }
   }
 }

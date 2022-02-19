@@ -1,4 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
+import { setAccessToken, setRefreshToken, setUserId, setUsername } from '@redux/actions';
+import * as SecureStore from 'expo-secure-store';
+import { useDispatch } from 'react-redux';
 
 // theme
 import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
@@ -6,29 +9,21 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Emoji } from '../../common/theme';
 
 // types
-import { AuthStackScreenProps } from '../../common/navigation/types';
-
-// redux
-import { useDispatch } from 'react-redux';
-import { setAccessToken, setRefreshToken, setUserId, setUsername } from '../../redux/actions';
-// persist data
-import * as SecureStore from 'expo-secure-store';
+import { AuthStackScreenProps } from '../navigation/types';
+import { AxiosError, AxiosResponse } from 'axios';
 
 // api calls
-//TODO move to a service layer
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
+import { useAuthApi } from '../hooks/useAuthApi';
 
-export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
+export default function SignInScreen({ navigation }: AuthStackScreenProps<'SignIn'>) {
   const { control, handleSubmit } = useForm();
   const { colorMode, toggleColorMode } = useColorMode();
+  const { signIn } = useAuthApi();
+
   const dispatch = useDispatch();
 
   const onSubmit = ({ username, password }: { username: string; password: string }) => {
-    axios
-      .post('auth/signin', { username: username, password: password }, {
-        skipAuthRefresh: true,
-      } as AxiosAuthRefreshRequestConfig)
+    return signIn(username, password)
       .then((response: AxiosResponse) => {
         dispatch(setAccessToken(response.data.access_token));
         dispatch(setRefreshToken(response.data.refresh_token));
@@ -45,20 +40,13 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
   };
 
   return (
-    <View justifyContent={'center'} alignItems={'center'}>
+    <View justifyContent={'space-between'} alignItems={'center'}>
       <IconButton
         m={2}
         mb="auto"
         alignSelf="flex-end"
         onPress={toggleColorMode}
         icon={<Icon as={FontAwesome5} name={colorMode === 'dark' ? 'sun' : 'moon'} />}
-      />
-      <Image
-        source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
-        alt={'App logo'}
-        size={'xl'}
-        borderRadius={100}
-        mb={40}
       />
       <Column
         w={{
@@ -68,6 +56,13 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
         space={12}
         alignItems={'center'}
       >
+        <Image
+          source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
+          alt={'App logo'}
+          size={'xl'}
+          borderRadius={100}
+        />
+
         <Controller
           control={control}
           name="username"
@@ -108,7 +103,7 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
         />
 
         <Button onPress={handleSubmit(onSubmit)}>Login</Button>
-        <Button variant={'link'} onPress={() => navigation.navigate('Register')}>
+        <Button variant={'link'} onPress={() => navigation.navigate('SignUp')}>
           Create an account
         </Button>
         <Text>{process.env.NODE_ENV}</Text>

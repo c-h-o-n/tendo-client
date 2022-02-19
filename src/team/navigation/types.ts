@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type TeamStackParamList = {
-  Team: undefined;
+  TeamList: undefined;
   CreateTeam: undefined;
 };
 

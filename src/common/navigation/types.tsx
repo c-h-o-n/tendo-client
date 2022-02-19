@@ -11,7 +11,6 @@ declare global {
   }
 }
 
-// CHECK navigation types still working
 // RootStack
 export type RootStackParamList = {
   Root: NavigatorScreenParams<BottomTabParamList | AuthStackParamList> | undefined;
@@ -24,10 +23,10 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 // BottomTab
 export type BottomTabParamList = {
-  Court: CourtStackParamList | undefined;
-  Team: TeamStackParamList | undefined;
-  Calendar: undefined;
-  Profile: undefined;
+  CourtStack: CourtStackParamList | undefined;
+  TeamStack: TeamStackParamList | undefined;
+  CalendarStack: undefined;
+  ProfileStack: undefined;
 };
 export type BottomTabScreenProps<Screen extends keyof BottomTabParamList> = CompositeScreenProps<
   NativeBottomTabScreenProps<BottomTabParamList, Screen>,

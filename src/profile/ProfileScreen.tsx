@@ -1,15 +1,23 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { View, Text, Column, Spinner } from 'native-base';
+
+// hooks
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { User } from '../../types';
+import { useUserApi } from './hooks/useUserApi';
+
+// types
+import { User } from '../types';
+import { AxiosError, AxiosResponse } from 'axios';
+
 export default function ProfileScreen() {
   const { username } = useSelector((state: any) => state.userReducer);
 
   const [user, setUser] = useState<User | undefined>();
+
+  const { getUserByUsername } = useUserApi();
+
   useEffect(() => {
-    axios
-      .get(`user/${username}`)
+    getUserByUsername(username)
       .then((response: AxiosResponse) => {
         console.log('get user: ', response.status);
         setUser(response.data);
