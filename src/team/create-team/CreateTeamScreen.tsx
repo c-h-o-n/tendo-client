@@ -35,13 +35,14 @@ export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'C
         mt={10}
         alignItems={'center'}
       >
+        {/* location */}
         <Controller
           control={control}
-          name="name"
+          name="location"
           render={({ field: { onChange, value } }) => (
             <Input
-              InputLeftElement={<Emoji name="seedling" />}
-              placeholder="name"
+              InputLeftElement={<Emoji name="camping" />}
+              placeholder="location"
               value={value}
               onChangeText={(value) => onChange(value)}
             />
@@ -54,13 +55,14 @@ export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'C
           }}
         />
 
+        {/* name */}
         <Controller
           control={control}
-          name="location"
+          name="name"
           render={({ field: { onChange, value } }) => (
             <Input
-              InputLeftElement={<Emoji name="camping" />}
-              placeholder="location"
+              InputLeftElement={<Emoji name="seedling" />}
+              placeholder="name"
               value={value}
               onChangeText={(value) => onChange(value)}
             />

@@ -46,6 +46,7 @@ export const theme = extendTheme({
       baseStyle: ({ colorMode }: { colorMode: ColorMode }) => {
         return {
           flex: 1,
+          pt: 2,
           bg: colorMode === 'dark' ? 'background.dark' : 'background.light',
         };
       },

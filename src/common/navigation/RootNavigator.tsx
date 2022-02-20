@@ -25,7 +25,7 @@ export default function RootNavigator() {
       axios
         .get('/')
         .then((response: AxiosResponse) => {
-          console.log('check tokens response:', response);
+          console.log('check tokens response:', response.data);
         })
         .catch((error: AxiosError) => {
           console.log("can't reach protect route", error);

@@ -18,6 +18,7 @@ export default async function useAxiosConfig() {
   axios.defaults.baseURL = baseURL;
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 
+  // BUG get infinite loop
   // NETWORK ERROR
   const toast = useToast();
   axios.interceptors.response.use(undefined, (error: AxiosError) => {

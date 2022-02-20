@@ -10,7 +10,7 @@ export type User = {
   age: number;
   height: number;
   weight: number;
-  profileImagePath: string;
+  image: Blob;
   games: number;
   wins: number;
   loses: number;
