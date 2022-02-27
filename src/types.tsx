@@ -10,7 +10,7 @@ export type User = {
   age: number;
   height: number;
   weight: number;
-  image: Blob;
+  avatarUri?: string;
   games: number;
   wins: number;
   loses: number;
@@ -27,6 +27,7 @@ export type Team = {
   location: string;
   wins: number;
   loses: number;
+  logoUrl?: string;
   elo?: number;
   members: User[];
 };

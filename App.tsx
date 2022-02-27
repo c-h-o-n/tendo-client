@@ -10,6 +10,7 @@ import SafeAreaView from './src/common/components/SafeAreaView';
 // redux
 import { Provider as ReduxProvider } from 'react-redux';
 import { Store } from './src/redux/store';
+
 export default function App() {
   return (
     <SafeAreaProvider>

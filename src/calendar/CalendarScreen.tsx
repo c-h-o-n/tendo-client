@@ -1,9 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { View, Button, useColorMode } from 'native-base';
+import { View, Button, useColorMode, Text, Image } from 'native-base';
 import { useDispatch } from 'react-redux';
 
 import * as SecureStore from 'expo-secure-store';
 import { setAccessToken, setRefreshToken } from '../redux/actions';
+
+import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
 
 export default function CalendarScreen() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -30,6 +33,22 @@ export default function CalendarScreen() {
     console.log('deleted');
   };
 
+  const [image, setImage] = useState<string | null>(null);
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   return (
     <View justifyContent={'flex-start'} alignItems={'center'}>
       <Button mt={5} onPress={toggleColorMode}>
@@ -41,6 +60,9 @@ export default function CalendarScreen() {
       <Button mt={5} onPress={logout}>
         Logout
       </Button>
+
+      <Button onPress={pickImage}>Browse Images</Button>
+      {image ? <Image source={{ uri: image }} style={{ width: 200, height: 200 }} /> : <Text>No image</Text>}
     </View>
   );
 }

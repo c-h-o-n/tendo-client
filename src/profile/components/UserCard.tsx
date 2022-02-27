@@ -1,29 +1,36 @@
-import { Column, Image, Text } from 'native-base';
+import { Center, Column, Image, Row, Text } from 'native-base';
 import { User } from '../../types';
 
 export default function UserCard({ user }: { user: User }) {
   return (
-    <Column height={200} alignItems={'center'} justifyContent={'space-between'}>
-      {/* TODO load image */}
-      <Image alt="placer's image" />
+    <Column p={'4'} w="75%" borderRadius="md" shadow={'4'} bg="background.dark">
+      {/* TODO Make uri relative somehow */}
+      <Center w="100%">
+        <Image
+          alt="player's avatar"
+          source={{
+            uri: user.avatarUri ? user.avatarUri : '/Users/chon/Desktop/tendo-client/src/common/assets/images/icon.png',
+          }}
+          w={200}
+          h="200"
+          borderRadius="md"
+        />
 
-      <Text bold>
-        <Text color={'green.700'}>W: {user.wins}</Text>
-        <Text color={'red.700'}>L: {user.loses}</Text>
-        <Text color={'primary.500'}>MVP: {user.mvps}</Text>
-      </Text>
+        <Row w={'100%'} justifyContent={'space-between'}>
+          <Text color={'green.700'}>W: {user.wins}</Text>
+          <Text color={'red.700'}>L: {user.loses}</Text>
+          <Text color={'primary.500'}>MVP: {!user.mvps && 0}</Text>
+        </Row>
 
-      <Text>
-        {user.firstName} {user.lastName}
-      </Text>
-      <Text>{user.location}</Text>
+        <Text>
+          {user.firstName} {user.lastName}
+        </Text>
+        <Text>{user.location}</Text>
+      </Center>
       <Text>Games: {user.games}</Text>
-      <Text>Match history: </Text>
       <Text>Age: {user.age}</Text>
       <Text>Height: {user.height}</Text>
       <Text>Weight: {user.weight}</Text>
-      <Text>Sports: {user.sports}</Text>
-      <Text>Joined: {user.joiningDate}</Text>
     </Column>
   );
 }

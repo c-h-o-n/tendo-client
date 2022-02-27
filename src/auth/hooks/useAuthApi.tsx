@@ -12,5 +12,10 @@ export function useAuthApi() {
     return axios.post('auth/signup', user);
   };
 
-  return { signIn, signUp };
+  // LATER implement sing out api call
+  const SignOut = () => {
+    return;
+  };
+
+  return { signIn, signUp, SignOut };
 }

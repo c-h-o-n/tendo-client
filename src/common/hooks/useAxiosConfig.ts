@@ -21,14 +21,16 @@ export default async function useAxiosConfig() {
   // BUG get infinite loop
   // NETWORK ERROR
   const toast = useToast();
-  axios.interceptors.response.use(undefined, (error: AxiosError) => {
-    if (error.message === 'Network Error') {
-      return toast.show({ description: 'network error' });
+
+  axios.interceptors.response.use(undefined, (error) => {
+    if (error.message !== 'Network Error') {
+      return Promise.reject(error);
     }
 
-    return Promise.reject(error);
+    console.log('network error detected');
+    toast.show({ description: 'network error' });
+    return Promise.reject();
   });
-
   // 401 - Unauthorized
   const refreshAuthLogic = async (failedRequest: any): Promise<any> => {
     console.log('expired access token');

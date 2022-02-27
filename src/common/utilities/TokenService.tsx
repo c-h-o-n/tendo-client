@@ -1,3 +1,4 @@
+// TODO refactor to hook
 import * as SecureStore from 'expo-secure-store';
 
 async function getRefreshToken(): Promise<string | null> {

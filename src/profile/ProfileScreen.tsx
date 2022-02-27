@@ -34,5 +34,5 @@ export default function ProfileScreen() {
     };
   }, []);
 
-  return <View>{!user ? <LoadingSpinner /> : <UserCard user={user} />}</View>;
+  return <View alignItems={'center'}>{!user ? <LoadingSpinner /> : <UserCard user={user} />}</View>;
 }

@@ -2,7 +2,7 @@
   "expo": {
     "name": "tendo",
     "slug": "tendo",
-    "version": "0.1.2",
+    "version": "alpha",
     "orientation": "portrait",
     "icon": "./src/common/assets/images/icon.png",
     "scheme": "myapp",

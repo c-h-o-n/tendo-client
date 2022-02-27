@@ -40,3 +40,5 @@
 
 - add basic team screen
 - refactor project sturecture -> feature / module based
+- more refactor on codebase
+- add ui card views

@@ -1,5 +1,5 @@
 // components
-import { View, Menu, Pressable, HamburgerIcon, Box, Toast } from 'native-base';
+import { View, Menu, Pressable, HamburgerIcon, Box, Toast, Center } from 'native-base';
 import { Swiper } from '@common/theme';
 import LoadingSpinner from '@common/components/LoadingSpinner';
 import TeamCard from './components/TeamCard';
@@ -31,7 +31,7 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
         setTeams(response.data);
       })
       .catch((error: AxiosError) => {
-        console.log(error.request);
+        console.log('rejected', error.message);
       })
       .finally(() => {
         setLoading(false);
@@ -51,7 +51,7 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
           <Menu
             trigger={(triggerProps) => {
               return (
-                <Pressable {...triggerProps} position="absolute" right={0} mr={2}>
+                <Pressable position="absolute" right={0} mr={2} zIndex={1} {...triggerProps}>
                   <HamburgerIcon />
                 </Pressable>
               );
@@ -63,7 +63,9 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
           {/* BUG on android animation bug */}
           <Swiper>
             {teams.map((team) => (
-              <TeamCard key={team.id} team={team} />
+              <Center key={team.id}>
+                <TeamCard team={team} />
+              </Center>
             ))}
           </Swiper>
         </Box>
