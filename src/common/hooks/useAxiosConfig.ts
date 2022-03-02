@@ -3,18 +3,20 @@ import createAuthRefreshInterceptor, { AxiosAuthRefreshRequestConfig } from 'axi
 import { useDispatch, useSelector } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import { setAccessToken, setRefreshToken } from '../../redux/actions';
-import TokenService from '../utilities/TokenService';
+import useJwtToken from './useJwtToken';
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { API_URL } from 'react-native-dotenv';
 import { useToast } from 'native-base';
 
 export default async function useAxiosConfig() {
-  const baseURL = API_URL;
   const dispatch = useDispatch();
-
   const { accessToken } = useSelector((state: any) => state.userReducer);
 
+  const { getStoredRefreshToken } = useJwtToken();
+
+  const baseURL = API_URL;
   axios.defaults.baseURL = baseURL;
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 
@@ -34,7 +36,7 @@ export default async function useAxiosConfig() {
   // 401 - Unauthorized
   const refreshAuthLogic = async (failedRequest: any): Promise<any> => {
     console.log('expired access token');
-    const refreshToken = await TokenService.getRefreshToken();
+    const refreshToken = await getStoredRefreshToken();
     return axios
       .post('auth/refresh', { refresh_token: refreshToken }, {
         skipAuthRefresh: true,

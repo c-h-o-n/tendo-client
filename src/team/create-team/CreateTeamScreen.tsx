@@ -24,6 +24,7 @@ export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'C
       .then((response: AxiosResponse) => navigation.navigate('TeamList'))
       .catch((error: AxiosError) => console.log(error.message));
   };
+
   return (
     <View flex={1} alignItems={'center'}>
       <Column

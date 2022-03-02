@@ -11,7 +11,6 @@ import { useAuthApi } from '../hooks/useAuthApi';
 import { AuthStackScreenProps } from '../navigation/types';
 import { AxiosError, AxiosResponse } from 'axios';
 
-// TODO rename register to sign up in whole project
 export default function SignUpScreen({ navigation }: AuthStackScreenProps<'SignUp'>) {
   const { control, handleSubmit } = useForm();
   const { signUp } = useAuthApi();
@@ -29,11 +28,11 @@ export default function SignUpScreen({ navigation }: AuthStackScreenProps<'SignU
 
     signUp(user)
       .then((response: AxiosResponse) => {
-        console.log('register success', response.status);
+        console.log('sign up success', response.status);
         navigation.navigate('SignIn');
       })
       .catch((error: AxiosError) => {
-        console.log('register error', error.response);
+        console.log('sign up error', error.response);
       });
   };
 

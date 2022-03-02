@@ -1,9 +1,11 @@
+import { MeatballsMenu } from './../../common/components/MeatballsMenu';
 // components
-import { View, Menu, Pressable, HamburgerIcon, Box, Toast, Center } from 'native-base';
+import { View, Menu, Box, Toast, Column, ScrollView } from 'native-base';
 import { Swiper } from '@common/theme';
 import LoadingSpinner from '@common/components/LoadingSpinner';
 import TeamCard from './components/TeamCard';
 import NoTeam from './components/NoTeam';
+import TeamMembersList from './components/TeamMembersList';
 
 // hooks
 import { useEffect, useState } from 'react';
@@ -48,29 +50,33 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
         <LoadingSpinner />
       ) : teams.length ? (
         <Box flex={1}>
-          <Menu
-            trigger={(triggerProps) => {
-              return (
-                <Pressable position="absolute" right={0} mr={2} zIndex={1} {...triggerProps}>
-                  <HamburgerIcon />
-                </Pressable>
-              );
-            }}
-          >
+          <MeatballsMenu>
             <Menu.Item onPress={() => navigation.navigate('CreateTeam')}>Create team</Menu.Item>
-            <Menu.Item onPress={() => Toast.show({ description: 'leave team' })}>Leave team</Menu.Item>
-          </Menu>
+            <Menu.Item
+              onPress={() =>
+                Toast.show({
+                  description: 'leave team',
+                })
+              }
+            >
+              Leave team
+            </Menu.Item>
+          </MeatballsMenu>
           {/* BUG on android animation bug */}
           <Swiper>
             {teams.map((team) => (
-              <Center key={team.id}>
-                <TeamCard team={team} />
-              </Center>
+              <ScrollView nestedScrollEnabled={true} key={team.id}>
+                <Column alignItems={'center'} space={4}>
+                  <TeamCard team={team} />
+
+                  <TeamMembersList members={team.members} />
+                </Column>
+              </ScrollView>
             ))}
           </Swiper>
         </Box>
       ) : (
-        <NoTeam navigation={navigation} />
+        <NoTeam navigate={() => navigation.navigate('CreateTeam')} />
       )}
     </View>
   );

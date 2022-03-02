@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { View, Button, useColorMode, Text, Image } from 'native-base';
+import { View, Button, useColorMode, Text, Image, Column } from 'native-base';
 import { useDispatch } from 'react-redux';
 
 import * as SecureStore from 'expo-secure-store';
@@ -51,18 +51,13 @@ export default function CalendarScreen() {
 
   return (
     <View justifyContent={'flex-start'} alignItems={'center'}>
-      <Button mt={5} onPress={toggleColorMode}>
-        {`Current mode ${colorMode?.toString()}`}
-      </Button>
-      <Button mt={5} onPress={checkNetwork}>
-        Check token
-      </Button>
-      <Button mt={5} onPress={logout}>
-        Logout
-      </Button>
-
-      <Button onPress={pickImage}>Browse Images</Button>
-      {image ? <Image source={{ uri: image }} style={{ width: 200, height: 200 }} /> : <Text>No image</Text>}
+      <Column space={5}>
+        <Button onPress={toggleColorMode}>{`Current mode ${colorMode?.toString()}`}</Button>
+        <Button onPress={checkNetwork}>Check token</Button>
+        <Button onPress={logout}>Logout</Button>
+        <Button onPress={pickImage}>Browse Images</Button>
+        {image ? <Image source={{ uri: image }} style={{ width: 200, height: 200 }} /> : <Text>No image</Text>}
+      </Column>
     </View>
   );
 }

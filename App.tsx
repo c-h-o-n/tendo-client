@@ -1,4 +1,3 @@
-// TODO Refactor codebase to feature based
 import { NativeBaseProvider } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 

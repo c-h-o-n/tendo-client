@@ -1,4 +1,4 @@
-// TODO refactore these types
+// TODO refactor these types
 export type User = {
   id: string;
   username: string;
@@ -10,7 +10,7 @@ export type User = {
   age: number;
   height: number;
   weight: number;
-  avatarUri?: string;
+  avatarUrl?: string;
   games: number;
   wins: number;
   loses: number;
@@ -29,5 +29,5 @@ export type Team = {
   loses: number;
   logoUrl?: string;
   elo?: number;
-  members: User[];
+  members: (User & { role: 'captain' | 'member' })[];
 };
