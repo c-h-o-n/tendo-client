@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Team } from '../../types';
 
 export function useTeamApi() {
-  const createTeam = (team: Team) => {
+  const createTeam = (team: Partial<Team>) => {
     return axios.post('/teams', { name: team.name, location: team.location });
   };
 

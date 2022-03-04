@@ -34,9 +34,10 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
     navigation.navigate('Chat');
   };
 
-  const navigateToTeam = (team: Partial<Team>) => {
+  const navigateToTeam = (team: Team) => {
     console.log('team', team);
     onClose();
+
     navigation.navigate('TeamDetails', { id: team.id });
   };
 

@@ -1,10 +1,9 @@
-import LoadingSpinner from '@common/components/LoadingSpinner';
 import { MeatballsMenu } from '@common/components/MeatballsMenu';
 import { CourtStackScreenProps } from '@court/navigation/types';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useTeamApi } from '@team/hooks/useTeamApi';
 import { AxiosError, AxiosResponse } from 'axios';
-import { Button, Icon, IconButton, Menu, View } from 'native-base';
+import { Icon, IconButton, Menu, View } from 'native-base';
 import { useEffect, useState } from 'react';
 import { Team } from '../../types';
 import TeamDetails from '../components/TeamDetails';
@@ -35,6 +34,7 @@ export default function TeamDetailsScreen({ route, navigation }: CourtStackScree
         onPress={() => navigation.goBack()}
       ></IconButton>
       <MeatballsMenu>
+        {/* TODO implement joining team */}
         <Menu.Item>Join team</Menu.Item>
       </MeatballsMenu>
       {team && <TeamDetails team={team} />}
