@@ -1,6 +1,5 @@
 import { Button, Center, Column, Heading } from 'native-base';
 
-// TODO move onpress function to TeamListScreen
 export default function NoTeam({ navigate }: any) {
   return (
     <Center flex={1}>

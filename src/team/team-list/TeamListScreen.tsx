@@ -1,11 +1,10 @@
 import { MeatballsMenu } from './../../common/components/MeatballsMenu';
 // components
-import { View, Menu, Box, Toast, Column, ScrollView } from 'native-base';
+import { View, Menu, Box, Toast } from 'native-base';
 import { Swiper } from '@common/theme';
 import LoadingSpinner from '@common/components/LoadingSpinner';
-import TeamCard from './components/TeamCard';
 import NoTeam from './components/NoTeam';
-import TeamMembersList from './components/TeamMembersList';
+import TeamDetails from '@team/components/TeamDetails';
 
 // hooks
 import { useEffect, useState } from 'react';
@@ -65,13 +64,7 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
           {/* BUG on android animation bug */}
           <Swiper>
             {teams.map((team) => (
-              <ScrollView nestedScrollEnabled={true} key={team.id}>
-                <Column alignItems={'center'} space={4}>
-                  <TeamCard team={team} />
-
-                  <TeamMembersList members={team.members} />
-                </Column>
-              </ScrollView>
+              <TeamDetails team={team} key={team.id} />
             ))}
           </Swiper>
         </Box>

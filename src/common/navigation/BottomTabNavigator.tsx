@@ -20,7 +20,7 @@ export default function BottomTabNavigator() {
       initialRouteName="CourtStack"
       screenOptions={{
         tabBarActiveTintColor: colors.primary[500],
-        tabBarInactiveTintColor: colors.warmGray[500],
+        tabBarInactiveTintColor: colors.warmGray[400],
         headerShown: false,
         tabBarShowLabel: false,
       }}

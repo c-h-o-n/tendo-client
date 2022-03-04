@@ -1,24 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import {
-  Icon,
-  IconButton,
-  Input,
-  View,
-  Row,
-  Heading,
-  Text,
-  Column,
-  Modal,
-  Actionsheet,
-  useDisclose,
-  Box,
-} from 'native-base';
+import { Icon, IconButton, Input, View, Row, Heading, Text, Actionsheet, useDisclose, Box } from 'native-base';
 
 import { CourtStackScreenProps } from '@court/navigation/types';
 import { Emoji } from '@common/theme';
 import { useSearchApi } from './hooks/useSearchApi';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
+import { Team } from '../../types';
 
 export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court'>) {
   const { search } = useSearchApi();
@@ -46,6 +34,12 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
     navigation.navigate('Chat');
   };
 
+  const navigateToTeam = (team: Partial<Team>) => {
+    console.log('team', team);
+    onClose();
+    navigation.navigate('TeamDetails', { id: team.id });
+  };
+
   const { isOpen, onOpen, onClose } = useDisclose();
 
   return (
@@ -57,7 +51,7 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
               <Box>
                 <Text>Teams</Text>
                 {results.teams.map((result: any) => (
-                  <Actionsheet.Item key={result.id} onPress={() => console.log('item pressed')}>
+                  <Actionsheet.Item key={result.id} onPress={() => navigateToTeam(result)}>
                     {result.name}
                   </Actionsheet.Item>
                 ))}
