@@ -1,18 +1,87 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Icon, IconButton, Input, View, Row, Heading } from 'native-base';
+import {
+  Icon,
+  IconButton,
+  Input,
+  View,
+  Row,
+  Heading,
+  Text,
+  Column,
+  Modal,
+  Actionsheet,
+  useDisclose,
+  Box,
+} from 'native-base';
 
 import { CourtStackScreenProps } from '@court/navigation/types';
 import { Emoji } from '@common/theme';
+import { useSearchApi } from './hooks/useSearchApi';
+import { useEffect, useState } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court'>) {
+  const { search } = useSearchApi();
+
+  const onSearch = (e: string) => {
+    search(e)
+      .then((response: AxiosResponse) => {
+        setResults(response.data);
+        console.log(response.data);
+      })
+      .catch((error: AxiosError) => {
+        console.log(error.message);
+      });
+    setTerm(e);
+  };
+
+  const [term, setTerm] = useState('');
+  const [results, setResults] = useState<any>(null);
+
+  useEffect(() => {
+    console.log(term, 'searching...');
+  }, [term]);
+
   const navigateToChat = () => {
     navigation.navigate('Chat');
   };
 
+  const { isOpen, onOpen, onClose } = useDisclose();
+
   return (
     <View>
       <Row space={2} px={2} justifyContent={'space-between'}>
-        <Input flex={1} InputLeftElement={<Emoji name="mag" />} placeholder="search..." />
+        <Actionsheet isOpen={isOpen} onClose={onClose}>
+          <Actionsheet.Content minH={'75%'} alignItems={'flex-start'}>
+            {results && (results.teams.length || results.users.length) && term.length ? (
+              <Box>
+                <Text>Teams</Text>
+                {results.teams.map((result: any) => (
+                  <Actionsheet.Item key={result.id} onPress={() => console.log('item pressed')}>
+                    {result.name}
+                  </Actionsheet.Item>
+                ))}
+                <Text>Users</Text>
+                {results.users.map((result: any) => (
+                  <Actionsheet.Item key={result.id} onPress={() => console.log('item pressed')}>
+                    {result.username}
+                  </Actionsheet.Item>
+                ))}
+              </Box>
+            ) : (
+              <Text w={'full'} textAlign={'center'}>
+                No results
+              </Text>
+            )}
+          </Actionsheet.Content>
+        </Actionsheet>
+        <Input
+          flex={1}
+          InputLeftElement={<Emoji name="mag" />}
+          onChangeText={onSearch}
+          onPressOut={onOpen}
+          placeholder="search..."
+        />
         <IconButton icon={<Icon as={FontAwesome5} name="comment-dots" />} onPress={navigateToChat} />
       </Row>
       <Row justifyContent={'center'} alignItems={'center'} flex={1}>

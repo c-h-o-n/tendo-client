@@ -27,15 +27,7 @@ export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'C
 
   return (
     <View flex={1} alignItems={'center'}>
-      <Column
-        w={{
-          base: '75%',
-          md: '25%',
-        }}
-        space={5}
-        mt={10}
-        alignItems={'center'}
-      >
+      <Column w={'75%'} space={5} mt={10} alignItems={'center'}>
         {/* location */}
         <Controller
           control={control}

@@ -48,14 +48,7 @@ export default function SignInScreen({ navigation }: AuthStackScreenProps<'SignI
         onPress={toggleColorMode}
         icon={<Icon as={FontAwesome5} name={colorMode === 'dark' ? 'sun' : 'moon'} />}
       />
-      <Column
-        w={{
-          base: '75%',
-          md: '25%',
-        }}
-        space={12}
-        alignItems={'center'}
-      >
+      <Column w={'75%'} space={12} alignItems={'center'}>
         <Image
           source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
           alt={'App logo'}
