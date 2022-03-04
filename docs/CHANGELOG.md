@@ -17,6 +17,7 @@
 
 `0.1.0`
 
+- `MILESTONE: jwt auth`
 - implement jwt authorization
 - add login screen
 
@@ -42,3 +43,8 @@
 - refactor project sturecture -> feature / module based
 - more refactor on codebase
 - add ui card views
+
+`0.2.0`
+
+- `MILESTONE: basic core features`
+- add basic search
