@@ -15,7 +15,7 @@ export default function UserCard({ user }: { user: User }) {
       <Center w="full">
         <Image
           alt="player's avatar"
-          source={{ uri: user.avatarUrl || '/Users/chon/Desktop/tendo-client/src/common/assets/images/icon.png' }}
+          source={user.avatarUrl ? { uri: user.avatarUrl } : require('@common/assets/images/icon.png')}
           w={200}
           h="200"
           borderRadius="md"

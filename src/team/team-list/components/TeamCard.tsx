@@ -5,8 +5,7 @@ export default function TeamCard({ team }: { team: Team }) {
   return (
     <Column
       space={2}
-      mt={5}
-      p={'4'}
+      p={4}
       w="75%"
       borderRadius="md"
       shadow={'4'}
@@ -21,7 +20,7 @@ export default function TeamCard({ team }: { team: Team }) {
           h="200"
           borderRadius="md"
           alt="team logo"
-          source={{ uri: team.logoUrl || '/Users/chon/Desktop/tendo-client/src/common/assets/images/icon.png' }}
+          source={team.logoUrl ? { uri: team.logoUrl } : require('@common/assets/images/icon.png')}
         />
         <Row w={'full'} justifyContent={'space-between'}>
           <Text color={'green.700'} bold>

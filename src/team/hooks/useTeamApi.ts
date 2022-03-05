@@ -13,5 +13,9 @@ export function useTeamApi() {
     return axios.get(`users/${userId}/teams`);
   };
 
-  return { createTeam, getTeam, getTeamsByUserId };
+  const joinTeam = (id: string) => {
+    return axios.post(`teams/${id}/join`);
+  };
+
+  return { createTeam, getTeam, getTeamsByUserId, joinTeam };
 }

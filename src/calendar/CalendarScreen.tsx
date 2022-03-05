@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { View, Button, useColorMode, Text, Image, Column } from 'native-base';
-import { useDispatch } from 'react-redux';
+import { View, Button, useColorMode, Text, Image, Column, Heading } from 'native-base';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as SecureStore from 'expo-secure-store';
 import { setAccessToken, setRefreshToken } from '../redux/actions';
@@ -10,8 +10,10 @@ import { useState } from 'react';
 
 export default function CalendarScreen() {
   const { colorMode, toggleColorMode } = useColorMode();
-
   const dispatch = useDispatch();
+
+  const { username } = useSelector((state: any) => state.userReducer);
+
   // BUG after navigating back from chat on checkNetwork() and color mode change the app renavigate to court
   const checkNetwork = () => {
     console.log('get protected route');
@@ -51,12 +53,13 @@ export default function CalendarScreen() {
 
   return (
     <View justifyContent={'flex-start'} alignItems={'center'}>
-      <Column space={5}>
+      <Column space={5} alignItems={'center'}>
+        <Heading bold>Logged in as {username}</Heading>
         <Button onPress={toggleColorMode}>{`Current mode ${colorMode?.toString()}`}</Button>
         <Button onPress={checkNetwork}>Check token</Button>
         <Button onPress={logout}>Logout</Button>
         <Button onPress={pickImage}>Browse Images</Button>
-        {image ? <Image source={{ uri: image }} style={{ width: 200, height: 200 }} /> : <Text>No image</Text>}
+        {image ? <Image alt="test" source={{ uri: image }} size={'2xl'} /> : <Text>No image</Text>}
       </Column>
     </View>
   );

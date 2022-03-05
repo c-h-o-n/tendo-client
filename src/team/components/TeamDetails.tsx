@@ -5,7 +5,7 @@ import { Team } from '../../types';
 
 export default function TeamDetails({ team }: { team: Team }) {
   return (
-    <ScrollView>
+    <ScrollView pt={1}>
       <Column alignItems={'center'} space={4}>
         <TeamCard team={team} />
         <TeamMembersList members={team.members} />
