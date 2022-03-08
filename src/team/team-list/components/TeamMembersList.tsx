@@ -9,7 +9,7 @@ export default function TeamMembersList({ members }: { members: (User & { role: 
     <Box w={'full'} px={5}>
       {members.map((item) => (
         <Row
-          bg={userId === item.id ? 'darkBlue.700' : 'transparent'}
+          bg={userId === item.id ? 'primary.500' : 'transparent'}
           key={item.id}
           justifyContent={'space-between'}
           alignItems={'center'}
@@ -27,7 +27,7 @@ export default function TeamMembersList({ members }: { members: (User & { role: 
           <Text>
             {item.firstName} {item.lastName}
           </Text>
-          <Text color={'primary.500'}>MVP: {item.mvps}</Text>
+          <Text color={'primary.300'}>MVP: {item.mvps}</Text>
           <Text>{item.role === 'captain' && '*'}</Text>
         </Row>
       ))}

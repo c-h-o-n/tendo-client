@@ -1,6 +1,6 @@
 import { Center, Column, Image, Row, Text } from 'native-base';
 import { Team } from '../../../types';
-// FIXME style cards
+
 export default function TeamCard({ team }: { team: Team }) {
   return (
     <Column
@@ -9,7 +9,7 @@ export default function TeamCard({ team }: { team: Team }) {
       w="75%"
       borderRadius="md"
       shadow={'4'}
-      _dark={{ bg: 'background.dark' }}
+      _dark={{ bg: 'dark[100]' }}
       _light={{ bg: 'background.light' }}
     >
       <Center w={'full'}>

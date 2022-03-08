@@ -49,7 +49,6 @@ export default function TeamDetailsScreen({ route, navigation }: CourtStackScree
             onPress={() => navigation.goBack()}
           ></IconButton>
           <MeatballsMenu>
-            {/* TODO implement joining team */}
             <Menu.Item onPress={onJoinTeam}>Join team</Menu.Item>
           </MeatballsMenu>
           <TeamDetails team={team} />

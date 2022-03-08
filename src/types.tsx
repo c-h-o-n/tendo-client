@@ -31,3 +31,11 @@ export type Team = {
   elo?: number;
   members: (User & { role: 'captain' | 'member' })[];
 };
+
+export type Fixture = {
+  id: string;
+  datetime: string;
+  status: string;
+  teamA: Team;
+  teamB: Team;
+};

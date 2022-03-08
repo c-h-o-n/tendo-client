@@ -3,15 +3,7 @@ import { User } from '../../types';
 
 export default function UserCard({ user }: { user: User }) {
   return (
-    <Column
-      p={'4'}
-      w="75%"
-      borderRadius="md"
-      shadow={'4'}
-      _dark={{ bg: 'background.dark' }}
-      _light={{ bg: 'background.light' }}
-    >
-      {/* TODO Make default uri relative somehow */}
+    <Column p={'4'} w="75%" borderRadius="md" shadow={'4'} _dark={{ bg: 'dark[100]' }} _light={{ bg: 'background.light' }}>
       <Center w="full">
         <Image
           alt="player's avatar"

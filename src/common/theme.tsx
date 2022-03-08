@@ -10,7 +10,7 @@ export const theme = extendTheme({
   },
   colors: {
     background: {
-      light: '#ECF0F1',
+      light: '#dee4e7',
       dark: '#2B2D42',
     },
     primary: {
@@ -47,7 +47,7 @@ export const theme = extendTheme({
         return {
           flex: 1,
           pt: 2,
-          bg: colorMode === 'dark' ? 'background.dark' : 'background.light',
+          bg: colorMode === 'dark' ? 'dark[100]' : 'background.light',
         };
       },
     },
@@ -63,6 +63,10 @@ export const theme = extendTheme({
         size: 'lg',
         fontSize: 'lg',
         autoCapitalize: 'none',
+        borderColor: 'primary.500',
+        _focus: {
+          borderColor: 'secondary.500',
+        },
       },
     },
     Button: {
@@ -106,7 +110,7 @@ export const NavigationDarkTheme: Theme = {
   colors: {
     ...DarkTheme.colors,
     primary: theme.colors.primary[500],
-    card: theme.colors.background.dark,
+    card: theme.colors.dark[100],
   },
 };
 

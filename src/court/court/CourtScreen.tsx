@@ -7,6 +7,7 @@ import { useSearchApi } from './hooks/useSearchApi';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Team } from '../../types';
+import Dashboard from './components/Dashboard';
 
 export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court'>) {
   const { search } = useSearchApi();
@@ -79,9 +80,7 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
         />
         <IconButton icon={<Icon as={FontAwesome5} name="comment-dots" />} onPress={navigateToChat} />
       </Row>
-      <Row justifyContent={'center'} alignItems={'center'} flex={1}>
-        <Heading>Dashboard</Heading>
-      </Row>
+      <Dashboard />
     </View>
   );
 }
