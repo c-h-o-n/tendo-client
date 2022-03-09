@@ -8,7 +8,7 @@ import useJwtToken from './useJwtToken';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { API_URL } from 'react-native-dotenv';
-import { useToast } from 'native-base';
+import { Toast, useToast } from 'native-base';
 
 export default async function useAxiosConfig() {
   const dispatch = useDispatch();
@@ -22,15 +22,16 @@ export default async function useAxiosConfig() {
 
   // BUG get infinite loop
   // NETWORK ERROR
-  const toast = useToast();
 
   axios.interceptors.response.use(undefined, (error) => {
     if (error.message !== 'Network Error') {
       return Promise.reject(error);
     }
-
     console.log('network error detected');
-    toast.show({ description: 'network error' });
+    if (!Toast.isActive('asd')) {
+      Toast.show({ id: 'asd', description: 'network error' });
+    }
+    console.log('asd', Toast.isActive('asd'));
     return Promise.reject();
   });
   // 401 - Unauthorized
