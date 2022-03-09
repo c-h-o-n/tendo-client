@@ -3,9 +3,9 @@ import UpcomingFixtures from './UpcomingFixtures';
 
 export default function Dashboard() {
   return (
-    <ScrollView>
-      <Center mt={2} mx={5}>
-        <Column w="full">
+    <ScrollView bounces={false}>
+      <Center m={5}>
+        <Column w="full" space={5}>
           <UpcomingFixtures />
         </Column>
       </Center>

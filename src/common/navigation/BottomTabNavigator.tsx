@@ -1,6 +1,10 @@
-import { useTheme } from 'native-base';
-import { BottomTabParamList } from './types';
 import { FontAwesome5 } from '@expo/vector-icons';
+
+// hooks
+import { useTheme } from 'native-base';
+
+// types
+import { BottomTabParamList } from './types';
 
 // navigators
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,8 +16,9 @@ import CalendarScreen from '@calendar/CalendarScreen';
 import ProfileScreen from '@profile/ProfileScreen';
 
 export default function BottomTabNavigator() {
-  const BottomTab = createBottomTabNavigator<BottomTabParamList>();
   const { colors } = useTheme();
+
+  const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
   return (
     <BottomTab.Navigator
@@ -36,7 +41,7 @@ export default function BottomTabNavigator() {
         name="TeamStack"
         component={TeamStackNavigator}
         options={{
-          tabBarIcon: ({ color, focused }) => <TabBarIcon name="users" color={color} solid={false} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="users" color={color} solid={false} />,
         }}
       />
       <BottomTab.Screen

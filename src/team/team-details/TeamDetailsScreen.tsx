@@ -4,13 +4,15 @@ import { CourtStackScreenProps } from '@court/navigation/types';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useTeamApi } from '@team/hooks/useTeamApi';
 import { AxiosError, AxiosResponse } from 'axios';
-import { Box, Icon, IconButton, Menu, View } from 'native-base';
+import { Box, Icon, IconButton, Menu, Text, View } from 'native-base';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Team } from '../../types';
 import TeamDetails from '../components/TeamDetails';
 
 export default function TeamDetailsScreen({ route, navigation }: CourtStackScreenProps<'TeamDetails'>) {
   const { getTeam, joinTeam } = useTeamApi();
+  const { userId } = useSelector((state: any) => state.userReducer);
 
   const [team, setTeam] = useState<Team>();
 
@@ -49,7 +51,8 @@ export default function TeamDetailsScreen({ route, navigation }: CourtStackScree
             onPress={() => navigation.goBack()}
           ></IconButton>
           <MeatballsMenu>
-            <Menu.Item onPress={onJoinTeam}>Join team</Menu.Item>
+            {!team.members.some((member) => member.id === userId) && <Menu.Item onPress={onJoinTeam}>Join team</Menu.Item>}
+            {/* <Menu.Item onPress={onJoinTeam}>Join team</Menu.Item> */}
           </MeatballsMenu>
           <TeamDetails team={team} />
         </Box>

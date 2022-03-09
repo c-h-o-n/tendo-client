@@ -63,6 +63,7 @@ export const theme = extendTheme({
         size: 'lg',
         fontSize: 'lg',
         autoCapitalize: 'none',
+        borderRadius: 'lg',
         borderColor: 'primary.500',
         _focus: {
           borderColor: 'secondary.500',
