@@ -39,3 +39,12 @@ export type Fixture = {
   teamA: Team;
   teamB: Team;
 };
+
+export type Matchup = {
+  id: string;
+  datetime: string;
+  status: string;
+  teamA: Team;
+  teamB: Team;
+  mvp: User;
+};

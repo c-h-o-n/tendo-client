@@ -1,35 +1,12 @@
-import { Box, Image, Row, Text } from 'native-base';
-import { useSelector } from 'react-redux';
+import TeamMemberCard from '@common/components/TeamMemberCard';
+import { Box } from 'native-base';
 import { User } from '../../../types';
 
 export default function TeamMembersList({ members }: { members: (User & { role: 'captain' | 'member' })[] }) {
-  const { userId } = useSelector((state: any) => state.userReducer);
-
   return (
     <Box w={'full'} px={5}>
-      {members.map((item) => (
-        <Row
-          bg={userId === item.id ? 'primary.500' : 'transparent'}
-          key={item.id}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-          borderRadius="md"
-          p={2}
-          mb={3}
-        >
-          <Image
-            alt="player's avatar"
-            source={item.avatarUrl ? { uri: item.avatarUrl } : require('@common/assets/images/icon.png')}
-            w={10}
-            h={10}
-            borderRadius="md"
-          />
-          <Text>
-            {item.firstName} {item.lastName}
-          </Text>
-          <Text color={'primary.300'}>MVP: {item.mvps}</Text>
-          <Text>{item.role === 'captain' && '*'}</Text>
-        </Row>
+      {members.map((member) => (
+        <TeamMemberCard key={member.id} member={member} />
       ))}
     </Box>
 

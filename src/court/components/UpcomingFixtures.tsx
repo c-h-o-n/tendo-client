@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import useMatchApi from '../hooks/useMatchApi';
 
 // types
-import { Fixture } from '../../../types';
-import Matchup from './Matchup';
+import { Fixture } from '../../types';
+import MatchupPreviewCard from './MatchupPreviewCard';
 
 export default function UpcomingFixtures() {
   const { getUpcomingFixtures } = useMatchApi();
@@ -29,7 +29,7 @@ export default function UpcomingFixtures() {
       <Row bg={'primary.500'} p={2}>
         <Text>Upcoming Fixtures</Text>
       </Row>
-      {fixtures && fixtures.map((fixture) => <Matchup key={fixture.id} fixture={fixture} />)}
+      {fixtures && fixtures.map((fixture) => <MatchupPreviewCard key={fixture.id} fixture={fixture} />)}
     </Column>
   );
 }

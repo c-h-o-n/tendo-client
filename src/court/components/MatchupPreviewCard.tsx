@@ -1,11 +1,14 @@
 import { Column, Image, Pressable, Row, Text } from 'native-base';
 import moment from 'moment';
 
-import { Fixture } from '../../../types';
+import { Fixture } from '../../types';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { CourtStackParamList } from '@court/navigation/types';
 
-export default function Matchup({ fixture }: { fixture: Fixture }) {
+export default function MatchupPreviewCard({ fixture }: { fixture: Fixture }) {
+  const navigation = useNavigation<NavigationProp<CourtStackParamList>>();
   return (
-    <Pressable onPress={() => console.log(fixture.id)}>
+    <Pressable onPress={() => navigation.navigate('Matchup', { id: fixture.id })}>
       <Row
         bg="dark.50"
         _light={{ bg: 'light.50' }}

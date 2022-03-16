@@ -8,7 +8,7 @@ import useJwtToken from './useJwtToken';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { API_URL } from 'react-native-dotenv';
-import { Toast, useToast } from 'native-base';
+import { Toast } from 'native-base';
 
 export default async function useAxiosConfig() {
   const dispatch = useDispatch();
@@ -20,9 +20,7 @@ export default async function useAxiosConfig() {
   axios.defaults.baseURL = baseURL;
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 
-  // BUG get infinite loop
   // NETWORK ERROR
-
   axios.interceptors.response.use(undefined, (error) => {
     if (error.message !== 'Network Error') {
       return Promise.reject(error);

@@ -13,7 +13,7 @@ declare global {
 
 // RootStack
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<BottomTabParamList | AuthStackParamList> | undefined;
+  Root: NavigatorScreenParams<BottomTabParamList | AuthStackParamList>;
   NotFound: undefined;
 };
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -23,8 +23,8 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 // BottomTab
 export type BottomTabParamList = {
-  CourtStack: CourtStackParamList | undefined;
-  TeamStack: TeamStackParamList | undefined;
+  CourtStack: NavigatorScreenParams<CourtStackParamList>;
+  TeamStack: NavigatorScreenParams<TeamStackParamList>;
   CalendarStack: undefined;
   ProfileStack: undefined;
 };

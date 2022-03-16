@@ -1,12 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Icon, IconButton, Input, View, Row, Heading, Text, Actionsheet, useDisclose, Box } from 'native-base';
+import { Icon, IconButton, Input, View, Row, Text, Actionsheet, useDisclose, Box } from 'native-base';
 
 import { CourtStackScreenProps } from '@court/navigation/types';
 import { Emoji } from '@common/theme';
 import { useSearchApi } from './hooks/useSearchApi';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
-import { Team } from '../../types';
+import { Team } from '../types';
 import Dashboard from './components/Dashboard';
 
 export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court'>) {
@@ -27,19 +27,14 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
   const [term, setTerm] = useState('');
   const [results, setResults] = useState<any>(null);
 
-  useEffect(() => {
-    console.log(term, 'searching...');
-  }, [term]);
-
   const navigateToChat = () => {
     navigation.navigate('Chat');
   };
 
   const navigateToTeam = (team: Team) => {
-    console.log('team', team);
     onClose();
 
-    navigation.navigate('TeamDetails', { id: team.id });
+    navigation.push('TeamDetails', { id: team.id });
   };
 
   const { isOpen, onOpen, onClose } = useDisclose();
@@ -75,7 +70,7 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
           flex={1}
           InputLeftElement={<Emoji name="mag" />}
           onChangeText={onSearch}
-          onPressOut={onOpen}
+          onPressIn={onOpen}
           placeholder="search..."
         />
         <IconButton icon={<Icon as={FontAwesome5} name="comment-dots" />} onPress={navigateToChat} />

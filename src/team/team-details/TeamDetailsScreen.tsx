@@ -1,14 +1,19 @@
+import { FontAwesome5 } from '@expo/vector-icons';
+// components
+import { Box, Icon, IconButton, Menu, View } from 'native-base';
 import LoadingSpinner from '@common/components/LoadingSpinner';
 import { MeatballsMenu } from '@common/components/MeatballsMenu';
-import { CourtStackScreenProps } from '@court/navigation/types';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { useTeamApi } from '@team/hooks/useTeamApi';
-import { AxiosError, AxiosResponse } from 'axios';
-import { Box, Icon, IconButton, Menu, Text, View } from 'native-base';
+import TeamDetails from '../components/TeamDetails';
+
+// hooks
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTeamApi } from '@team/hooks/useTeamApi';
+
+// types
+import { CourtStackScreenProps } from '@court/navigation/types';
+import { AxiosError, AxiosResponse } from 'axios';
 import { Team } from '../../types';
-import TeamDetails from '../components/TeamDetails';
 
 export default function TeamDetailsScreen({ route, navigation }: CourtStackScreenProps<'TeamDetails'>) {
   const { getTeam, joinTeam } = useTeamApi();
