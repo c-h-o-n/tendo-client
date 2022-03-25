@@ -48,3 +48,7 @@
 
 - `MILESTONE: basic core features`
 - add basic search
+
+`0.3.0`
+
+- `MILESTONE: add match notification`
