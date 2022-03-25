@@ -1,4 +1,4 @@
-import { SET_ACCESS_TOKEN, SET_REFRESH_TOKEN, SET_USERNAME, SET_USER_ID } from './actions';
+import { SET_ACCESS_TOKEN, SET_EXPO_PUSH_TOKEN, SET_REFRESH_TOKEN, SET_USERNAME, SET_USER_ID } from './actions';
 
 const initialState = {
   accessToken: null,
@@ -17,6 +17,8 @@ export default function userReducer(state = initialState, action: any) {
       return { ...state, userId: action.payload };
     case SET_USERNAME:
       return { ...state, username: action.payload };
+    case SET_EXPO_PUSH_TOKEN:
+      return { ...state, expoPushToken: action.payload };
     default:
       return state;
   }

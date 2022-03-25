@@ -1,6 +1,6 @@
 import { MeatballsMenu } from './../../common/components/MeatballsMenu';
 // components
-import { View, Menu, Box, Toast } from 'native-base';
+import { View, Box, Menu, Toast } from 'native-base';
 import { Swiper } from '@common/theme';
 import LoadingSpinner from '@common/components/LoadingSpinner';
 import NoTeam from './components/NoTeam';
@@ -37,10 +37,6 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
       .finally(() => {
         setLoading(false);
       });
-
-    return () => {
-      () => console.log('cleanup');
-    };
   }, []);
 
   return (
@@ -51,20 +47,12 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
         <Box flex={1}>
           <MeatballsMenu>
             <Menu.Item onPress={() => navigation.navigate('CreateTeam')}>Create team</Menu.Item>
-            <Menu.Item
-              onPress={() =>
-                Toast.show({
-                  description: 'leave team',
-                })
-              }
-            >
-              Leave team
-            </Menu.Item>
+            <Menu.Item onPress={() => Toast.show({ description: 'leave team' })}>Leave team</Menu.Item>
           </MeatballsMenu>
           {/* BUG on android animation bug */}
           <Swiper>
             {teams.map((team) => (
-              <TeamDetails team={team} key={team.id} />
+              <TeamDetails key={team.id} team={team} />
             ))}
           </Swiper>
         </Box>

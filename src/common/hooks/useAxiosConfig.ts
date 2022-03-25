@@ -21,11 +21,11 @@ export default async function useAxiosConfig() {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
 
   // NETWORK ERROR
-  axios.interceptors.response.use(undefined, (error) => {
+  axios.interceptors.response.use(undefined, (error: AxiosError) => {
     if (error.message !== 'Network Error') {
       return Promise.reject(error);
     }
-    console.log('network error detected');
+    console.log('network error detected baseUrl', error.request);
     if (!Toast.isActive('asd')) {
       Toast.show({ id: 'asd', description: 'network error' });
     }

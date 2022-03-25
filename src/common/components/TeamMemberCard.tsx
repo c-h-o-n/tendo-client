@@ -1,7 +1,6 @@
 import { Image, Row, Text } from 'native-base';
 import { useSelector } from 'react-redux';
 import { User } from '../../types';
-
 export default function TeamMemberCard({
   member,
   showMvp = true,

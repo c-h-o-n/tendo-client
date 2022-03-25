@@ -1,7 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
 import { setAccessToken, setRefreshToken, setUserId, setUsername } from '@redux/actions';
 import * as SecureStore from 'expo-secure-store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // theme
 import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
@@ -16,14 +16,16 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { useAuthApi } from '../hooks/useAuthApi';
 
 export default function SignInScreen({ navigation }: AuthStackScreenProps<'SignIn'>) {
-  const { control, handleSubmit } = useForm();
   const { colorMode, toggleColorMode } = useColorMode();
+  const { control, handleSubmit } = useForm();
+
   const { signIn } = useAuthApi();
+  const { expoPushToken } = useSelector((state: any) => state.userReducer);
 
   const dispatch = useDispatch();
 
   const onSubmit = ({ username, password }: { username: string; password: string }) => {
-    return signIn(username, password)
+    return signIn(username, password, 'ExponentPushToken[R8qZFFCOxl84OBOnpsUOt1]')
       .then((response: AxiosResponse) => {
         dispatch(setAccessToken(response.data.access_token));
         dispatch(setRefreshToken(response.data.refresh_token));

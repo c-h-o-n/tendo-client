@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "tendo",
+    "owner": "chon76",
     "slug": "tendo",
     "version": "pre-alpha",
     "orientation": "portrait",
@@ -15,7 +16,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,7 +26,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/common/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.chon76.tendo"
     },
     "web": {
       "favicon": "./src/common/assets/images/favicon.png"
