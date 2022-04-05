@@ -14,7 +14,6 @@ export default function CalendarScreen() {
 
   const { username } = useSelector((state: any) => state.userReducer);
 
-  // BUG after navigating back from chat on checkNetwork() and color mode change the app renavigate to court
   const checkNetwork = () => {
     console.log('get protected route');
     axios
@@ -32,7 +31,7 @@ export default function CalendarScreen() {
     dispatch(setAccessToken(null));
     await SecureStore.deleteItemAsync('refreshToken');
     dispatch(setRefreshToken(null));
-    console.log('deleted');
+    console.log('signed-out');
   };
 
   const [image, setImage] = useState<string | null>(null);

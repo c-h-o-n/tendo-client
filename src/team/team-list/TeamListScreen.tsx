@@ -37,6 +37,10 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
       .finally(() => {
         setLoading(false);
       });
+
+    return () => {
+      setTeams([]);
+    };
   }, []);
 
   return (
@@ -49,7 +53,7 @@ export default function TeamListScreen({ navigation }: TeamStackScreenProps<'Tea
             <Menu.Item onPress={() => navigation.navigate('CreateTeam')}>Create team</Menu.Item>
             <Menu.Item onPress={() => Toast.show({ description: 'leave team' })}>Leave team</Menu.Item>
           </MeatballsMenu>
-          {/* BUG on android animation bug */}
+          {/* BUG on android animation bug  */}
           <Swiper>
             {teams.map((team) => (
               <TeamDetails key={team.id} team={team} />

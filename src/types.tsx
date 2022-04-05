@@ -16,8 +16,7 @@ export type User = {
   loses: number;
   mvps: number;
   elo: number;
-  lastSeen: string;
-  joiningDate: string;
+  createdAt: string;
   sports: string;
 };
 

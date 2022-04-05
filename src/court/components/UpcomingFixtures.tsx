@@ -9,6 +9,7 @@ import useMatchApi from '../hooks/useMatchApi';
 import { Fixture } from '../../types';
 import MatchupPreviewCard from './MatchupPreviewCard';
 
+// TODO show no fixtures label
 export default function UpcomingFixtures() {
   const { getUpcomingFixtures } = useMatchApi();
   const { userId } = useSelector((state: any) => state.userReducer);
@@ -20,14 +21,17 @@ export default function UpcomingFixtures() {
         setFixtures(response.data);
       })
       .catch((error: AxiosError) => {
-        console.log(error);
+        console.log('error fixture', error);
       });
+    return () => {
+      setFixtures(undefined);
+    };
   }, []);
 
   return (
     <Column space={3} pb={1} borderColor={'primary.500'} borderWidth={2} borderRadius={'lg'} w={'full'}>
       <Row bg={'primary.500'} p={2}>
-        <Text>Upcoming Fixtures</Text>
+        <Text color={'lightText'}>Upcoming Fixtures</Text>
       </Row>
       {fixtures && fixtures.map((fixture) => <MatchupPreviewCard key={fixture.id} fixture={fixture} />)}
     </Column>

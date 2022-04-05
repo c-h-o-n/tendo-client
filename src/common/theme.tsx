@@ -70,7 +70,17 @@ export const theme = extendTheme({
         },
       },
     },
+    // Image: {
+    //   defaultProps: {
+    //     border: 1
+    //   }
+    // },
     Button: {
+      variants: {
+        outline: {
+          _pressed: { _text: { color: 'lightText' } },
+        },
+      },
       defaultProps: {
         size: 'lg',
       },

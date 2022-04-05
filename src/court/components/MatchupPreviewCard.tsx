@@ -20,11 +20,19 @@ export default function MatchupPreviewCard({ fixture }: { fixture: Fixture }) {
       >
         <Column space={1}>
           <Row space={1}>
-            <Image alt="team logo" source={require('@common/assets/images/icon.png')} size="2xs" />
+            <Image
+              alt="team logo"
+              source={fixture.teamA.logoUrl ? { uri: fixture.teamA.logoUrl } : require('@common/assets/images/icon.png')}
+              size="2xs"
+            />
             <Text>{fixture.teamA.name}</Text>
           </Row>
           <Row space={1}>
-            <Image alt="team logo" source={require('@common/assets/images/icon.png')} size="2xs" />
+            <Image
+              alt="team logo"
+              source={fixture.teamB.logoUrl ? { uri: fixture.teamB.logoUrl } : require('@common/assets/images/icon.png')}
+              size="2xs"
+            />
             <Text>{fixture.teamB.name}</Text>
           </Row>
         </Column>

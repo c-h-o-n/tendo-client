@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as ImagePicker from 'expo-image-picker';
 import { Team } from '../../types';
 
 export function useTeamApi() {
@@ -7,7 +8,7 @@ export function useTeamApi() {
   };
 
   const getTeam = (id: string) => {
-    return axios.get(`/teams/${id}`);
+    return axios.get(`teams/${id}`);
   };
   const getTeamsByUserId = (userId: string) => {
     return axios.get(`users/${userId}/teams`);
@@ -17,5 +18,23 @@ export function useTeamApi() {
     return axios.post(`teams/${id}/join`);
   };
 
-  return { createTeam, getTeam, getTeamsByUserId, joinTeam };
+  const uploadLogo = (id: string, file: any) => {
+    const body = new FormData();
+    body.append('file', file, 'filename.jpg');
+
+    console.log('file', file);
+    console.log(body);
+    return axios.post(
+      `teams/${id}/upload`,
+      { body },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          boundary: 'file',
+        },
+      },
+    );
+  };
+
+  return { createTeam, getTeam, getTeamsByUserId, joinTeam, uploadLogo };
 }

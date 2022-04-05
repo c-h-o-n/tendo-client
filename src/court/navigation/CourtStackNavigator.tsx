@@ -6,6 +6,7 @@ import ChatScreen from '../../chat/ChatScreen';
 import CourtScreen from '@court/CourtScreen';
 import TeamDetailsScreen from '@team/team-details/TeamDetailsScreen';
 import MatchupScreen from '../../match/MatchupScreen';
+import CreateMatchScreen from '../../match/CreateMatchScreen';
 
 // types
 import { CourtStackParamList } from './types';
@@ -22,6 +23,7 @@ export default function CourtStackNavigator() {
       />
       <Stack.Screen name="TeamDetails" component={TeamDetailsScreen} />
       <Stack.Screen name="Matchup" component={MatchupScreen} />
+      <Stack.Screen name="CreateMatch" component={CreateMatchScreen} />
     </Stack.Navigator>
   );
 }

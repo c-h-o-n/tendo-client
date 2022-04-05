@@ -15,6 +15,7 @@ import { CourtStackScreenProps } from '@court/navigation/types';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Team } from '../../types';
 
+// TODO create matchup
 export default function TeamDetailsScreen({ route, navigation }: CourtStackScreenProps<'TeamDetails'>) {
   const { getTeam, joinTeam } = useTeamApi();
   const { userId } = useSelector((state: any) => state.userReducer);
@@ -45,6 +46,12 @@ export default function TeamDetailsScreen({ route, navigation }: CourtStackScree
     }
   };
 
+  const onChallenge = () => {
+    if (team) {
+      navigation.navigate('CreateMatch', { teamB: team });
+    }
+  };
+
   return (
     <View>
       {team ? (
@@ -57,6 +64,7 @@ export default function TeamDetailsScreen({ route, navigation }: CourtStackScree
           ></IconButton>
           <MeatballsMenu>
             {!team.members.some((member) => member.id === userId) && <Menu.Item onPress={onJoinTeam}>Join team</Menu.Item>}
+            {!team.members.some((member) => member.id === userId) && <Menu.Item onPress={onChallenge}>Challenge</Menu.Item>}
             {/* <Menu.Item onPress={onJoinTeam}>Join team</Menu.Item> */}
           </MeatballsMenu>
           <TeamDetails team={team} />

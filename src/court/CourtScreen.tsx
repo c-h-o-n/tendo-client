@@ -31,13 +31,12 @@ export default function CourtScreen({ navigation }: CourtStackScreenProps<'Court
     navigation.navigate('Chat');
   };
 
+  const { isOpen, onOpen, onClose } = useDisclose();
+
   const navigateToTeam = (team: Team) => {
     onClose();
-
     navigation.push('TeamDetails', { id: team.id });
   };
-
-  const { isOpen, onOpen, onClose } = useDisclose();
 
   return (
     <View>

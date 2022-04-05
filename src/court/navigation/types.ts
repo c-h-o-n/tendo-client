@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Team } from '../../types';
 
 // CourtStack
 export type CourtStackParamList = {
@@ -6,6 +7,7 @@ export type CourtStackParamList = {
   Chat: undefined;
   TeamDetails: { id: string };
   Matchup: { id: string };
+  CreateMatch: { teamB: Team };
 };
 export type CourtStackScreenProps<Screen extends keyof CourtStackParamList> = NativeStackScreenProps<
   CourtStackParamList,

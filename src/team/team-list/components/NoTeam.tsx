@@ -7,7 +7,6 @@ export default function NoTeam({ navigate }: any) {
         <Heading color={'primary.500'}>You have no team!</Heading>
         <Column w={'75%'} space={5}>
           <Button>Join team</Button>
-          {/* TODO fix contrast warning on outline variant*/}
           <Button variant={'outline'} onPress={navigate}>
             Create team
           </Button>
