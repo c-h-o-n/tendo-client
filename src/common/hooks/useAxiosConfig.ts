@@ -32,6 +32,7 @@ export default async function useAxiosConfig() {
     console.log('asd', Toast.isActive('asd'));
     return Promise.reject();
   });
+
   // 401 - Unauthorized
   const refreshAuthLogic = async (failedRequest: any): Promise<any> => {
     console.log('expired access token');

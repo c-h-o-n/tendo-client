@@ -1,5 +1,7 @@
 import { NativeBaseProvider } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as Notifications from 'expo-notifications';
+import { useEffect } from 'react';
 
 import { theme } from './src/common/theme';
 
@@ -10,10 +12,7 @@ import SafeAreaView from './src/common/components/SafeAreaView';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Store } from './src/redux/store';
 
-import * as Notifications from 'expo-notifications';
-import { useEffect } from 'react';
-
-async function getNotToken() {
+async function getPushToken() {
   try {
     const token = (await Notifications.getExpoPushTokenAsync({ experienceId: '@chon76/tendo' })).data;
 
@@ -32,9 +31,9 @@ export default function App() {
         shouldSetBadge: false,
       }),
     });
-    getNotToken();
+    getPushToken();
   }, []);
-
+  // LATER refresh on pull down
   return (
     <SafeAreaProvider>
       <NativeBaseProvider theme={theme}>

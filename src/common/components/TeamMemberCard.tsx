@@ -1,6 +1,7 @@
 import { Image, Row, Text } from 'native-base';
 import { useSelector } from 'react-redux';
 import { User } from '../../types';
+
 export default function TeamMemberCard({
   member,
   showMvp = true,
@@ -26,7 +27,7 @@ export default function TeamMemberCard({
         borderRadius="md"
       />
 
-      <Text>
+      <Text isTruncated maxW={'50%'}>
         {member.firstName} {member.lastName}
       </Text>
 

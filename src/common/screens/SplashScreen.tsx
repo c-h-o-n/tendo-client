@@ -1,10 +1,9 @@
-import { View } from 'native-base';
-import { Text } from 'react-native';
+import { Spinner, View } from 'native-base';
 
 export default function SplashScreen() {
   return (
-    <View bg={'purple.300'} justifyContent={'center'} alignItems={'center'}>
-      <Text>Loading...</Text>
+    <View justifyContent={'center'} alignItems={'center'}>
+      <Spinner />
     </View>
   );
 }

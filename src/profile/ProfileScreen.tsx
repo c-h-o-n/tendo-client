@@ -8,10 +8,9 @@ import { User } from '../types';
 import { AxiosError, AxiosResponse } from 'axios';
 
 // components
-import { Box, HamburgerIcon, Menu, View } from 'native-base';
+import { Box, View } from 'native-base';
 import UserCard from './components/UserCard';
 import LoadingSpinner from '@common/components/LoadingSpinner';
-import { Pressable } from 'react-native';
 
 export default function ProfileScreen() {
   const { getUserByUsername } = useUserApi();
@@ -41,24 +40,6 @@ export default function ProfileScreen() {
         <LoadingSpinner />
       ) : (
         <Box>
-          <Menu
-            trigger={(triggerProps) => {
-              return (
-                <Pressable accessibilityLabel="More options menu" {...triggerProps}>
-                  <HamburgerIcon />
-                </Pressable>
-              );
-            }}
-          >
-            <Menu.Item>Arial</Menu.Item>
-            <Menu.Item>Nunito Sans</Menu.Item>
-            <Menu.Item>Roboto</Menu.Item>
-            <Menu.Item>Poppins</Menu.Item>
-            <Menu.Item>SF Pro</Menu.Item>
-            <Menu.Item>Helvetica</Menu.Item>
-            <Menu.Item isDisabled>Sofia</Menu.Item>
-            <Menu.Item>Cookie</Menu.Item>
-          </Menu>
           <UserCard user={user} />
         </Box>
       )}
