@@ -25,19 +25,21 @@ const linking: LinkingOptions<RootStackParamList> = {
               RegisterScreen: 'signup',
             },
           },
-          Court: {
+          CourtStack: {
             screens: {
               CourtScreen: 'court',
+              Matchup: 'matchup/:id',
             },
           },
+
           Team: {
             screens: {
               TeamScreen: 'team',
             },
           },
-          Calendar: {
+          CalendarStack: {
             screens: {
-              CalendarScreen: 'calendar',
+              CalendarsScreen: 'calendar',
             },
           },
           Profile: {

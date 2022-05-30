@@ -8,6 +8,7 @@ export type CourtStackParamList = {
   TeamDetails: { id: string };
   Matchup: { id: string };
   CreateMatch: { teamB: Team };
+  Search: undefined;
 };
 export type CourtStackScreenProps<Screen extends keyof CourtStackParamList> = NativeStackScreenProps<
   CourtStackParamList,

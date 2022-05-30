@@ -6,13 +6,15 @@ import * as SecureStore from 'expo-secure-store';
 import { setAccessToken, setRefreshToken } from '../redux/actions';
 
 import * as ImagePicker from 'expo-image-picker';
+import * as Notifications from 'expo-notifications';
+
 import { useState } from 'react';
 
 export default function CalendarScreen() {
   const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useDispatch();
 
-  const { username } = useSelector((state: any) => state.userReducer);
+  const { username, expoPushToken } = useSelector((state: any) => state.userReducer);
 
   const checkNetwork = () => {
     console.log('get protected route');
@@ -50,6 +52,18 @@ export default function CalendarScreen() {
     }
   };
 
+  async function schedulePushNotification() {
+    console.log('schedule noti');
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: 'Here is the notification body',
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 2 },
+    });
+  }
+
   return (
     <View justifyContent={'flex-start'} alignItems={'center'}>
       <Column space={5} alignItems={'center'}>
@@ -59,6 +73,8 @@ export default function CalendarScreen() {
         <Button onPress={logout}>Logout</Button>
         <Button onPress={pickImage}>Browse Images</Button>
         {image ? <Image alt="test" source={{ uri: image }} size={'2xl'} /> : <Text>No image</Text>}
+        <Button onPress={schedulePushNotification}>Test notification</Button>
+        <Text>push token: {expoPushToken}</Text>
       </Column>
     </View>
   );

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as ImagePicker from 'expo-image-picker';
 import { Team } from '../../types';
 
 export function useTeamApi() {
@@ -16,6 +15,10 @@ export function useTeamApi() {
 
   const joinTeam = (id: string) => {
     return axios.post(`teams/${id}/join`);
+  };
+
+  const leaveTeam = (id: string) => {
+    return axios.get(`teams/${id}/leave`);
   };
 
   const uploadLogo = (id: string, file: any) => {
@@ -36,5 +39,5 @@ export function useTeamApi() {
     );
   };
 
-  return { createTeam, getTeam, getTeamsByUserId, joinTeam, uploadLogo };
+  return { createTeam, getTeam, getTeamsByUserId, joinTeam, leaveTeam, uploadLogo };
 }

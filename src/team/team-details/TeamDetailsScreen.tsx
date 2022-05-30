@@ -15,7 +15,6 @@ import { CourtStackScreenProps } from '@court/navigation/types';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Team } from '../../types';
 
-// TODO create matchup
 export default function TeamDetailsScreen({ route, navigation }: CourtStackScreenProps<'TeamDetails'>) {
   const { getTeam, joinTeam } = useTeamApi();
   const { userId } = useSelector((state: any) => state.userReducer);
@@ -23,6 +22,7 @@ export default function TeamDetailsScreen({ route, navigation }: CourtStackScree
   const [team, setTeam] = useState<Team>();
 
   useEffect(() => {
+    console.log('teamid: ', route.params.id);
     getTeam(route.params.id)
       .then((response: AxiosResponse<Team>) => {
         console.log(route.params?.id);

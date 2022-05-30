@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "824864234627",
+    "project_id": "tendo-342320",
+    "storage_bucket": "tendo-342320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824864234627:android:aa95eca9cfb79c26898fb6",
+        "android_client_info": {
+          "package_name": "com.chon76.tendo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824864234627-fg9q3f7pe3aouinod1ng153fppgj3lhk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGK404S7pB5cscnBxZSZs3Lgp-YBomZP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824864234627-fg9q3f7pe3aouinod1ng153fppgj3lhk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

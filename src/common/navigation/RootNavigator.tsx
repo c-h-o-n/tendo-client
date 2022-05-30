@@ -14,6 +14,7 @@ import AuthStackNavigator from '../../auth/navigation/AuthStackNavigator';
 import SplashScreen from '../screens/SplashScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import useAxiosConfig from '@common/hooks/useAxiosConfig';
+
 export default function RootNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const isLoadingComplete = useCachedResources();

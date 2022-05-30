@@ -1,4 +1,4 @@
-// TODO refactor these types
+// LATER refactor these types
 export type User = {
   id: string;
   username: string;

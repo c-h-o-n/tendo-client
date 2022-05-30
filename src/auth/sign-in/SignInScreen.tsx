@@ -1,7 +1,11 @@
 import { Controller, useForm } from 'react-hook-form';
 import { setAccessToken, setRefreshToken, setUserId, setUsername } from '@redux/actions';
 import * as SecureStore from 'expo-secure-store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import * as Notifications from 'expo-notifications';
+import * as Linking from 'expo-linking';
+
+import { useEffect, useState } from 'react';
 
 // theme
 import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
@@ -15,17 +19,47 @@ import { AxiosError, AxiosResponse } from 'axios';
 // api calls
 import { useAuthApi } from '../hooks/useAuthApi';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
 export default function SignInScreen({ navigation }: AuthStackScreenProps<'SignIn'>) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { control, handleSubmit } = useForm();
+  const [pushToken, setPushToken] = useState('');
 
   const { signIn } = useAuthApi();
-  const { expoPushToken } = useSelector((state: any) => state.userReducer);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log('useffect');
+
+    Notifications.getExpoPushTokenAsync({ experienceId: '@chon76/tendo' }).then(({ data: token }) => {
+      setPushToken(token);
+    });
+
+    const subscription = Notifications.addNotificationResponseReceivedListener(async (response) => {
+      const url = response.notification.request.content.data.url as string;
+      const fullurl = Linking.createURL(url);
+
+      if (fullurl) {
+        console.log('open url', fullurl);
+        Linking.openURL(fullurl).then((c) => console.log(c));
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   const onSubmit = ({ username, password }: { username: string; password: string }) => {
-    return signIn(username, password, 'ExponentPushToken[R8qZFFCOxl84OBOnpsUOt1]')
+    return signIn(username, password, pushToken)
       .then((response: AxiosResponse) => {
         dispatch(setAccessToken(response.data.access_token));
         dispatch(setRefreshToken(response.data.refresh_token));

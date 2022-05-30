@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { TeamStackScreenProps } from '@team/navigation/types';
 
-// TODO: LOGO upload
+// FIXME: LOGO upload
 export default function CreateTeamScreen({ navigation }: TeamStackScreenProps<'CreateTeam'>) {
   const { control, handleSubmit } = useForm();
   const { createTeam, uploadLogo } = useTeamApi();

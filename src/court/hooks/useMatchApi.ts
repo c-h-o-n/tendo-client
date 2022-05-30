@@ -8,8 +8,13 @@ export default function useMatchApi() {
   const getMatch = (id: string) => {
     return axios.get(`match/${id}`);
   };
+
   const getUpcomingFixtures = (userId: string) => {
     return axios.get(`users/${userId}/fixtures`);
   };
-  return { createMatch, getMatch, getUpcomingFixtures };
+
+  const updateMatch = (id: string, data: any) => {
+    return axios.patch(`match/${id}`, data);
+  };
+  return { createMatch, getMatch, getUpcomingFixtures, updateMatch };
 }

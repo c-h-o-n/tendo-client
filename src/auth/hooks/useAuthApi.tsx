@@ -3,7 +3,7 @@ import { AxiosAuthRefreshRequestConfig } from 'axios-auth-refresh';
 
 export function useAuthApi() {
   const signIn = (username: string, password: string, pushToken: string) => {
-    return axios.post('auth/signin', { username: username, password: password, pushToken }, {
+    return axios.post('auth/signin', { username: username, password: password, pushToken: pushToken }, {
       skipAuthRefresh: true,
     } as AxiosAuthRefreshRequestConfig);
   };
