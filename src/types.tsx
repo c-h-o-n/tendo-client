@@ -45,5 +45,7 @@ export type Matchup = {
   status: string;
   teamA: Team;
   teamB: Team;
+  teamAScore: string;
+  teamBScore: string;
   mvp: User;
 };

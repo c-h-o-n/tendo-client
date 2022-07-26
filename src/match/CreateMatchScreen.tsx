@@ -1,5 +1,5 @@
 import { CourtStackScreenProps } from '@court/navigation/types';
-import { Button, Column, Row, Select, View, Text, Pressable } from 'native-base';
+import { Button, Column, Row, Select, View } from 'native-base';
 import { useEffect, useState } from 'react';
 import useMatchApi from '@court/hooks/useMatchApi';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -49,6 +49,7 @@ export default function CreateMatchScreen({ navigation, route }: CourtStackScree
     setDate(date);
     hideDatePicker();
   };
+
   return (
     <View>
       <Row justifyContent={'center'}>

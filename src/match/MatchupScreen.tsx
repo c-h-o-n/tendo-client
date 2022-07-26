@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Button, Center, Column, Image, Row, Text, View } from 'native-base';
+import { Button, Center, Column, Image, Input, Modal, Row, Text, View } from 'native-base';
 import useMatchApi from '@court/hooks/useMatchApi';
 import { CourtStackScreenProps } from '@court/navigation/types';
 import { AxiosError, AxiosResponse } from 'axios';
-import { Matchup } from '../types';
+import { Matchup, Team } from '../types';
 import TeamMemberCard from '@common/components/TeamMemberCard';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { Emoji } from '@common/theme';
+import { Controller, useForm } from 'react-hook-form';
 
 // TODO finish me up
-export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'>) {
+export default function MatchupScreen({ route, navigation }: CourtStackScreenProps<'Matchup'>) {
   const { userId } = useSelector((state: any) => state.userReducer);
+  const { control, handleSubmit } = useForm();
 
   const { getMatch, updateMatch } = useMatchApi();
 
@@ -20,6 +23,7 @@ export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'
     console.log('Welcome to matchup screen!', route);
     getMatch(route.params.id)
       .then((response: AxiosResponse) => {
+        console.log('data', response.data);
         setMatchup(response.data);
       })
       .catch((error: AxiosError) => {
@@ -27,7 +31,23 @@ export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'
       });
   }, []);
 
-  const isCaptian = () => {
+  useEffect(() => {
+    if (matchup) {
+      console.log('matchup useffect');
+      const isCaptainInteamA = matchup.teamA.members.some((member) => member.role === 'captain' && member.id === userId);
+      if (isCaptainInteamA) {
+        setCaptainTeam(matchup.teamA);
+      }
+      const isCaptainInteamB = matchup.teamB.members.some((member) => member.role === 'captain' && member.id === userId);
+      if (isCaptainInteamB) {
+        setCaptainTeam(matchup.teamB);
+      }
+    }
+  }, [matchup]);
+
+  const [captainTeam, setCaptainTeam] = useState<Team>();
+
+  const isCaptain = () => {
     if (matchup) {
       const isCaptainInteamA = matchup.teamA.members.some((member) => member.role === 'captain' && member.id === userId);
       const isCaptainInteamB = matchup.teamB.members.some((member) => member.role === 'captain' && member.id === userId);
@@ -36,13 +56,23 @@ export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'
     return false;
   };
 
-  const onCompleteMatch = () => {
-    updateMatch(route.params.id, { status: 'completed' })
-      .then((response: AxiosResponse) => {
-        console.log(response.data);
-      })
-      .catch((error: AxiosError) => console.log(error));
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const onCompleteMatch = ({ score }: { score: string }) => {
+    if (matchup) {
+      console.log(matchup);
+      if (captainTeam?.id === matchup?.teamA.id) {
+        updateMatch(matchup?.id, { teamAScore: parseInt(score) })
+          .then((resp) => {
+            console.log(resp);
+          })
+          .then((e) => console.log(e));
+      } else {
+        updateMatch(matchup?.id, { teamBScore: parseInt(score) });
+      }
+    }
   };
+
   return (
     <View>
       {matchup && matchup.status !== 'completed' && (
@@ -56,6 +86,7 @@ export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'
               />
               <Text>{matchup.teamA.location}</Text>
               <Text>{matchup.teamA.name}</Text>
+              <Text>{matchup.teamAScore}</Text>
             </Column>
 
             <Column justifyContent={'center'} px={2} flex={1}>
@@ -70,12 +101,13 @@ export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'
               />
               <Text>{matchup.teamB.location}</Text>
               <Text>{matchup.teamB.name}</Text>
+              <Text>{matchup.teamBScore}</Text>
             </Column>
           </Row>
 
-          {isCaptian() && (
+          {isCaptain() && (
             <Row justifyContent={'center'}>
-              <Button onPress={onCompleteMatch}>Complete match</Button>
+              <Button onPress={() => setModalVisible(!modalVisible)}>Complete match</Button>
             </Row>
           )}
 
@@ -100,6 +132,37 @@ export default function MatchupScreen({ route }: CourtStackScreenProps<'Matchup'
           <Text>Match is Completed!</Text>
         </Center>
       )}
+
+      <Modal isOpen={modalVisible} onClose={setModalVisible} size={'md'}>
+        <Modal.Content>
+          <Modal.CloseButton />
+          <Modal.Header>{captainTeam && `${captainTeam?.location}  ${captainTeam?.name}`}</Modal.Header>
+          <Modal.Body>
+            <Controller
+              control={control}
+              name="score"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  InputLeftElement={<Emoji name="checkered_flag" />}
+                  placeholder={'enter score'}
+                  keyboardType={'numeric'}
+                  value={value}
+                  onChangeText={(value) => onChange(value)}
+                />
+              )}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'Field is required!',
+                },
+              }}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onPress={handleSubmit(onCompleteMatch)}>Save</Button>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
     </View>
   );
 }
