@@ -15,3 +15,7 @@ web-build/
 
 # dotenv environment variables file
 .env
+
+
+# temp todos
+MOST_IMPORTANT.md
