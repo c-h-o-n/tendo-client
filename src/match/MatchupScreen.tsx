@@ -13,17 +13,17 @@ import { Controller, useForm } from 'react-hook-form';
 // TODO finish me up
 export default function MatchupScreen({ route, navigation }: CourtStackScreenProps<'Matchup'>) {
   const { userId } = useSelector((state: any) => state.userReducer);
-  const { control, handleSubmit } = useForm();
-
-  const { getMatch, updateMatch } = useMatchApi();
 
   const [matchup, setMatchup] = useState<Matchup>();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const { getMatch, updateMatch } = useMatchApi();
+  const { control, handleSubmit } = useForm();
 
   useEffect(() => {
     console.log('Welcome to matchup screen!', route);
     getMatch(route.params.id)
       .then((response: AxiosResponse) => {
-        console.log('data', response.data);
         setMatchup(response.data);
       })
       .catch((error: AxiosError) => {
@@ -31,45 +31,22 @@ export default function MatchupScreen({ route, navigation }: CourtStackScreenPro
       });
   }, []);
 
-  useEffect(() => {
-    if (matchup) {
-      console.log('matchup useffect');
-      const isCaptainInteamA = matchup.teamA.members.some((member) => member.role === 'captain' && member.id === userId);
-      if (isCaptainInteamA) {
-        setCaptainTeam(matchup.teamA);
-      }
-      const isCaptainInteamB = matchup.teamB.members.some((member) => member.role === 'captain' && member.id === userId);
-      if (isCaptainInteamB) {
-        setCaptainTeam(matchup.teamB);
-      }
-    }
-  }, [matchup]);
-
-  const [captainTeam, setCaptainTeam] = useState<Team>();
-
-  const isCaptain = () => {
-    if (matchup) {
-      const isCaptainInteamA = matchup.teamA.members.some((member) => member.role === 'captain' && member.id === userId);
-      const isCaptainInteamB = matchup.teamB.members.some((member) => member.role === 'captain' && member.id === userId);
-      return isCaptainInteamA || isCaptainInteamB;
-    }
-    return false;
+  const isCaptainInTeamA = () => {
+    return matchup?.teamA.members.some((member) => member.role === 'captain' && member.id === userId);
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const isCaptainInTeamB = () => {
+    return matchup?.teamB.members.some((member) => member.role === 'captain' && member.id === userId);
+  };
 
   const onCompleteMatch = ({ score }: { score: string }) => {
     if (matchup) {
-      console.log(matchup);
-      if (captainTeam?.id === matchup?.teamA.id) {
-        updateMatch(matchup?.id, { teamAScore: parseInt(score) })
-          .then((resp) => {
-            console.log(resp);
-          })
-          .then((e) => console.log(e));
-      } else {
-        updateMatch(matchup?.id, { teamBScore: parseInt(score) });
-      }
+      updateMatch(matchup?.id, {
+        ...(isCaptainInTeamA() && { teamAScore: parseInt(score) }),
+        ...(isCaptainInTeamB() && { teamBScore: parseInt(score) }),
+      })
+        .then(() => navigation.navigate('Court'))
+        .catch((error: AxiosError) => console.log(error));
     }
   };
 
@@ -105,7 +82,7 @@ export default function MatchupScreen({ route, navigation }: CourtStackScreenPro
             </Column>
           </Row>
 
-          {isCaptain() && (
+          {(isCaptainInTeamA() || isCaptainInTeamB()) && (
             <Row justifyContent={'center'}>
               <Button onPress={() => setModalVisible(!modalVisible)}>Complete match</Button>
             </Row>
@@ -136,7 +113,8 @@ export default function MatchupScreen({ route, navigation }: CourtStackScreenPro
       <Modal isOpen={modalVisible} onClose={setModalVisible} size={'md'}>
         <Modal.Content>
           <Modal.CloseButton />
-          <Modal.Header>{captainTeam && `${captainTeam?.location}  ${captainTeam?.name}`}</Modal.Header>
+          {isCaptainInTeamA() && <Modal.Header>{`${matchup?.teamA.location}  ${matchup?.teamA.name}`}</Modal.Header>}
+          {isCaptainInTeamB() && <Modal.Header>{`${matchup?.teamB.location}  ${matchup?.teamB.name}`}</Modal.Header>}
           <Modal.Body>
             <Controller
               control={control}
