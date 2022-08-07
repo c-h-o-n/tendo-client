@@ -34,7 +34,7 @@ export type Team = {
 export type Fixture = {
   id: string;
   datetime: string;
-  status: string;
+  status: 'scheduled' | 'pending' | 'completed' | 'canceled';
   teamA: Team;
   teamB: Team;
 };
@@ -42,7 +42,7 @@ export type Fixture = {
 export type Matchup = {
   id: string;
   datetime: string;
-  status: string;
+  status: 'scheduled' | 'pending' | 'completed' | 'canceled';
   teamA: Team;
   teamB: Team;
   teamAScore: string;
