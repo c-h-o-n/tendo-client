@@ -8,6 +8,7 @@ import { setAccessToken, setRefreshToken } from '../redux/actions';
 import * as ImagePicker from 'expo-image-picker';
 import * as Notifications from 'expo-notifications';
 
+import { version } from '../../package.json';
 import { useState } from 'react';
 
 export default function CalendarScreen() {
@@ -75,6 +76,7 @@ export default function CalendarScreen() {
         {image ? <Image alt="test" source={{ uri: image }} size={'2xl'} /> : <Text>No image</Text>}
         <Button onPress={schedulePushNotification}>Test notification</Button>
         <Text>push token: {expoPushToken}</Text>
+        <Text>version: {version}</Text>
       </Column>
     </View>
   );
