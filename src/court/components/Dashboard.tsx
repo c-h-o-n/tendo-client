@@ -7,9 +7,9 @@ export default function Dashboard() {
       <Center m={5}>
         <Column w="full" space={5}>
           <UpcomingFixtures />
-          <Center>
+          {/* <Center>
             <Text>local rankings...</Text>
-          </Center>
+          </Center> */}
         </Column>
       </Center>
     </ScrollView>
