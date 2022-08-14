@@ -75,7 +75,7 @@ export default function CalendarScreen() {
         <Button onPress={pickImage}>Browse Images</Button>
         {image ? <Image alt="test" source={{ uri: image }} size={'2xl'} /> : <Text>No image</Text>}
         <Button onPress={schedulePushNotification}>Test notification</Button>
-        <Text>push token: {expoPushToken}</Text>
+        <Text>push token: {expoPushToken || 'Notifications are not supported'}</Text>
         <Text>version: {version}</Text>
       </Column>
     </View>
