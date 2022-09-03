@@ -8,7 +8,7 @@ import * as Linking from 'expo-linking';
 import { useEffect, useState } from 'react';
 
 // theme
-import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton } from 'native-base';
+import { View, Button, Input, Column, Text, Image, useColorMode, Icon, IconButton, Heading } from 'native-base';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Emoji } from '../../common/theme';
 
@@ -85,13 +85,7 @@ export default function SignInScreen({ navigation }: AuthStackScreenProps<'SignI
         icon={<Icon as={FontAwesome5} name={colorMode === 'dark' ? 'sun' : 'moon'} />}
       />
       <Column w={'75%'} space={12} alignItems={'center'}>
-        <Image
-          source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
-          alt={'App logo'}
-          size={'xl'}
-          borderRadius={100}
-        />
-
+        <Heading>Tendo</Heading>
         <Controller
           control={control}
           name="username"
