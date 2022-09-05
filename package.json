@@ -37,7 +37,7 @@
     "expo-web-browser": "~10.1.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
-    "native-base": "^3.3.5",
+    "native-base": "^3.4.13",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^7.22.5",
