@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`header renders correctly 1`] = `
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessible={true}
+    aria-haspopup="menu"
+    collapsable={false}
+    dataSet={Object {}}
+    focusable={true}
+    nativeID="react-aria-1"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onHoverIn={[Function]}
+    onHoverOut={[Function]}
+    onKeyDownCapture={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "position": "absolute",
+        "right": 12,
+        "zIndex": 1,
+      }
+    }
+  >
+    <Text />
+  </View>
+</RNCSafeAreaProvider>
+`;
