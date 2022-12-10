@@ -29,7 +29,6 @@ export default async function useAxiosConfig() {
     if (!Toast.isActive('asd')) {
       Toast.show({ id: 'asd', description: 'network error' });
     }
-    console.log('asd', Toast.isActive('asd'));
     return Promise.reject();
   });
 

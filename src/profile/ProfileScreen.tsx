@@ -26,7 +26,7 @@ export default function ProfileScreen() {
         setUser(response.data);
       })
       .catch((error: AxiosError) => {
-        console.log('error on prof', error);
+        console.log('error', error);
       });
 
     return () => {

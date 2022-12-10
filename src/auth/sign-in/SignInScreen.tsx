@@ -37,8 +37,6 @@ export default function SignInScreen({ navigation }: AuthStackScreenProps<'SignI
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('useffect');
-
     Notifications.getExpoPushTokenAsync({ experienceId: '@chon76/tendo' }).then(({ data: token }) => {
       setPushToken(token);
     });
